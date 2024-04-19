@@ -3,6 +3,7 @@ package ModelsPersona;
 import ModelsInspeccion.Inspeccion;
 
 import java.util.ArrayList;
+import java.util.SimpleTimeZone;
 
 public class Inspector extends Persona{
     private String especialidad;
@@ -39,11 +40,18 @@ public class Inspector extends Persona{
 
     @Override
     public String toString() {
-        return "Inspector{" +
+        return "Inspector: " + "\n" +
                 super.toString() +
-                "especialidad='" + especialidad + '\'' +
-                ", inspecciones=" + inspecciones +
-                '}';
+                "\nEspecialidad: " + especialidad + '\'' +
+                "\nInspecciones=" + listaInspecciones();
+    }
+
+    public String listaInspecciones(){
+        String data = "Inspecciones: \n";
+        for(Inspeccion i : Inspeccion){
+            data += i.toString();
+        }
+        return data;
     }
 
 

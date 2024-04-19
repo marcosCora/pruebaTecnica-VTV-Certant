@@ -93,13 +93,11 @@ public abstract class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", dni='" + dni + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", telefono='" + telefono + '\'' +
-                '}';
+        return "\nID: " + id +
+                "\nNombre: "  + nombre +
+                "\nApellido: " + apellido +
+                "\nDNI: " + dni +
+                "\nDireccion: " + direccion +
+                "\nTelefono: " + telefono;
     }
 }
