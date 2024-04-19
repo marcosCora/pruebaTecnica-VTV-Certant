@@ -26,13 +26,13 @@ public class Vehiculo {
         this.dniPropietario = " ";
     }
 
-    public Vehiculo(int id, String marca, String modelo, String dominio, String fechaEmisionVtv, String propietario) {
+    public Vehiculo(int id, String marca, String modelo, String dominio, String fechaEmisionVtv, String dniPropietario) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.dominio = dominio;
         this.fechaEmisionVtv = fechaEmisionVtv;
-        this.dniPropietario = propietario;
+        this.dniPropietario = dniPropietario;
     }
 
     public int getId() {

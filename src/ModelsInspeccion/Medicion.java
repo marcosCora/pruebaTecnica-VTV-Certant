@@ -29,15 +29,14 @@ public class Medicion extends Control{
 
     @Override
     public String toString() {
-        return "Medicion{" +
-                super.toString() +
-                "tipoMedicion=" + tipoMedicion +
-                '}';
+        return "\n\tMedicion de tipo: "+ tipoMedicion +
+                "\t" + super.toString();
     }
 
     public JSONObject toJson(){
-        JSONObject jsonObject = super.toJson();
+        JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject = super.toJson();
             jsonObject.put("tipoMedicon", tipoMedicion);
         }catch (JSONException ex){
             System.out.println(ex.getMessage());

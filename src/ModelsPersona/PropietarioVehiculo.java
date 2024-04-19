@@ -52,8 +52,9 @@ public class PropietarioVehiculo extends Persona{
     }
 
     public JSONObject toJson(){
-        JSONObject jsonObject = super.toJson();
+        JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject = super.toJson();
             JSONArray jsonArray = new JSONArray();
             for(Vehiculo v : vehiculos){
                 jsonArray.put(v.toJson());

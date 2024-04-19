@@ -27,15 +27,15 @@ public class Observacion extends Control{
 
     @Override
     public String toString() {
-        return "Observacion{" +
+        return "\nObservacion" +
                 super.toString() +
-                "componentesInspeccionados='" + componentesInspeccionados + '\'' +
-                '}';
+                "\nComponentes inspeccionados: " + componentesInspeccionados;
     }
 
     public JSONObject toJson(){
-        JSONObject jsonObject = super.toJson();
+        JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject = super.toJson();
             jsonObject.put("componentesInspeccionados", componentesInspeccionados);
         }catch (JSONException ex){
             System.out.println(ex.getMessage());

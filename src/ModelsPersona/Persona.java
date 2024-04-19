@@ -104,39 +104,25 @@ public abstract class Persona {
                 "\nTelefono: " + telefono;
     }
 
-    public JSONObject toJson(){
+    public JSONObject toJson() throws JSONException{
         JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("id", id);
-            jsonObject.put("nombre", nombre);
-            jsonObject.put("apellido", apellido);
-            jsonObject.put("dni", dni);
-            jsonObject.put("direccion", direccion);
-            jsonObject.put("telefono", telefono);
-        }catch (JSONException ex){
-            System.out.println(ex.getMessage());
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
+
+        jsonObject.put("id", id);
+        jsonObject.put("nombre", nombre);
+        jsonObject.put("apellido", apellido);
+        jsonObject.put("dni", dni);
+        jsonObject.put("direccion", direccion);
+        jsonObject.put("telefono", telefono);
+
         return jsonObject;
     }
 
-    public void fromJson(JSONObject jsonObject) {
-        try {
-            id = jsonObject.getInt("id");
-            nombre = jsonObject.getString("nombre");
-            apellido = jsonObject.getString("apellido");
-            dni = jsonObject.getString("dni");
-            direccion = jsonObject.getString("direccion");
-            telefono = jsonObject.getString("telefono");
-        }
-        catch (JSONException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
+    public void fromJson(JSONObject jsonObject) throws JSONException {
+        id = jsonObject.getInt("id");
+        nombre = jsonObject.getString("nombre");
+        apellido = jsonObject.getString("apellido");
+        dni = jsonObject.getString("dni");
+        direccion = jsonObject.getString("direccion");
+        telefono = jsonObject.getString("telefono");
     }
 }

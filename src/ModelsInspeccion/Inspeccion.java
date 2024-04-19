@@ -122,16 +122,21 @@ public class Inspeccion {
 
     @Override
     public String toString() {
-        return "Inspeccion{" +
-                "id=" + id +
-                ", nroInspeccion=" + nroInspeccion +
-                ", fecha='" + fecha + '\'' +
-                observacion.toString() +
-                mediciones.toString() +
-                ", exento=" + exento +
+        return "\nInspeccion Nº" + nroInspeccion +
+                "Fecha" + fecha + "\t" +
+                observacion.toString() + "\t" +
+                listarMediciones() +
+                "Exento: " + exento +
                 "Dominio Vehiculo: " + dominioVehiculo +
-                "DNI Inspector: " + dniInspector +
-                '}';
+                "DNI Inspector: " + dniInspector;
+    }
+
+    public String listarMediciones(){
+        String info = "";
+        for(Medicion m : mediciones){
+            info += "\n" + m.toString();
+        }
+        return info;
     }
 
     public JSONObject toJson(){

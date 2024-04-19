@@ -59,8 +59,9 @@ public class Inspector extends Persona{
 
 
     public JSONObject toJson(){
-        JSONObject jsonObject = super.toJson();
+        JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject = super.toJson();
             jsonObject.put("especialidad", especialidad);
             JSONArray jsonArray = new JSONArray();
             for(Inspeccion i : inspecciones){

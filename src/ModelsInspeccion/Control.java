@@ -71,43 +71,25 @@ public abstract class Control {
 
     @Override
     public String toString() {
-        return "Control{" +
-                "id=" + id +
-                ", descripcion='" + descripcion + '\'' +
-                ", resultado=" + resultado +
-                '}';
+        return  "\nID: " + id +
+                "\nDescripcion: " + descripcion +
+                "\nResultado: " + resultado;
     }
 
-    public JSONObject toJson(){
+    public JSONObject toJson() throws JSONException{
         JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("id", id);
-            jsonObject.put("descripcion", descripcion);
-            jsonObject.put("resultado", resultado);
-        }catch (JSONException ex){
-            System.out.println(ex.getMessage());
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
+        jsonObject.put("id", id);
+        jsonObject.put("descripcion", descripcion);
+        jsonObject.put("resultado", resultado);
 
         return jsonObject;
     }
 
-    public void fromJson(JSONObject jsonObject) {
-        try {
+    public void fromJson(JSONObject jsonObject) throws JSONException {
             id = jsonObject.getInt("id");
             descripcion = jsonObject.getString("descripcion");
             String r = jsonObject.getString("resultado");
             resultado = Resultado.valueOf(r.toUpperCase());
-        }
-        catch (JSONException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
     }
 
 }

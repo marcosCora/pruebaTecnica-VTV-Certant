@@ -1,7 +1,10 @@
 package ModelsGestoras;
 
+import ModelsEnums.TipoDueno;
 import ModelsPersona.Inspector;
 import ModelsPersona.PropietarioVehiculo;
+import ModelsVehiculo.Vehiculo;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ public class GestoraUsuarios {
 
     //Funciones de inspectores
 
-    public boolean agregarInspector(Inspector i){
+    public boolean agregar(Inspector i){
         boolean flag = false;
         Inspector iExistente = buscaInspector(i);
 
@@ -48,8 +51,10 @@ public class GestoraUsuarios {
         return rta;
     }
 
+
+
     //posible interface
-    public String listarInspectores(){
+    public String listar(){
         String info = "";
         for (Inspector i : inspectores){
             info += "\n" + i.toString();
@@ -76,6 +81,26 @@ public class GestoraUsuarios {
         return i;
     }
 
+
+
+
+
+
+
+    /*
+    public void guardarArch(String nombreArch){
+        ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+        Vehiculo v = new Vehiculo(1, "Ford", "Falcon SP", "123 abc", "19-04-2024", "43392102");
+        vehiculos.add(v);
+        PropietarioVehiculo p = new PropietarioVehiculo(1, "Marcos", "Corasaniti", "43392102", "48 3344", "2262304691", vehiculos, TipoDueno.EXENTO);
+        guardarArchivo(nombreArch, p);
+    }
+    public void guardarArchivo(String nombreArch, PropietarioVehiculo p){
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(p.toJson());
+        jsonUtiles.grabar(jsonArray, nombreArch);
+    }
+    */
 
 
 
