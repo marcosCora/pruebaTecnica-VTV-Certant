@@ -2,6 +2,7 @@ package ModelsGestoras;
 
 import ModelsPersona.Inspector;
 import ModelsPersona.PropietarioVehiculo;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,12 @@ public class GestoraUsuarios {
         }
         return i;
     }
+
+
+
+
+
+
 
 
 

@@ -2,6 +2,9 @@ package ModelsInspeccion;
 
 import ModelsPersona.Inspector;
 import ModelsVehiculo.Vehiculo;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,8 +18,8 @@ public class Inspeccion {
     private Observacion observacion;
     private ArrayList<Medicion> mediciones;
     private boolean exento;
-    private Inspector inspector;
-    private Vehiculo vehiculo;
+    private String dniInspector;
+    private String dominioVehiculo;
 
     public Inspeccion() {
         this.id = 0;
@@ -25,18 +28,18 @@ public class Inspeccion {
         this.observacion = new Observacion();
         this.mediciones = new ArrayList<Medicion>();
         this.exento = false;
-        this.inspector = new Inspector();
-        this.vehiculo = new Vehiculo();
+        this.dniInspector = "";
+        this.dominioVehiculo = "";
     }
-    public Inspeccion(int id, int nroInspeccion, String fecha, Observacion observacion, ArrayList<Medicion> mediciones, boolean exento, Inspector inspector, Vehiculo vehiculo) {
+    public Inspeccion(int id, int nroInspeccion, String fecha, Observacion observacion, ArrayList<Medicion> mediciones, boolean exento, String dniInspector, String dominioVehiculo) {
         this.id = id;
         this.nroInspeccion = nroInspeccion;
         this.fecha = fecha;
         this.observacion = observacion;
         this.mediciones = mediciones;
         this.exento = exento;
-        this.inspector = inspector;
-        this.vehiculo = vehiculo;
+        this.dniInspector = dniInspector;
+        this.dominioVehiculo = dominioVehiculo;
     }
 
     public int getId() {
@@ -87,20 +90,20 @@ public class Inspeccion {
         this.exento = exento;
     }
 
-    public Inspector getInspector() {
-        return inspector;
+    public String getInspector() {
+        return dniInspector;
     }
 
-    public void setInspector(Inspector inspector) {
-        this.inspector = inspector;
+    public void setInspector(String dniInspector) {
+        this.dniInspector = dniInspector;
     }
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
+    public String getVehiculo() {
+        return dominioVehiculo;
     }
 
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
+    public void setVehiculo(String dominioVehiculo) {
+        this.dominioVehiculo = dominioVehiculo;
     }
 
     @Override
@@ -109,7 +112,7 @@ public class Inspeccion {
         if(obj != null){
             if(obj instanceof Inspeccion){
                 Inspeccion aux = (Inspeccion) obj;
-                if(id == aux.id && nroInspeccion == aux.nroInspeccion && vehiculo.equals(((Inspeccion) obj).vehiculo) && inspector.equals(aux.inspector)){
+                if(id == aux.id && nroInspeccion == aux.nroInspeccion && dominioVehiculo.equals(((Inspeccion) obj).dominioVehiculo) && dniInspector.equals(aux.dniInspector)){
                     rta = true;
                 }
             }
@@ -126,8 +129,62 @@ public class Inspeccion {
                 observacion.toString() +
                 mediciones.toString() +
                 ", exento=" + exento +
-                inspector.toString() +
-                vehiculo.toString() +
+                "Dominio Vehiculo: " + dominioVehiculo +
+                "DNI Inspector: " + dniInspector +
                 '}';
     }
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("nroInspeccion", nroInspeccion);
+            jsonObject.put("fecha", fecha);
+            jsonObject.put("observacion", observacion.toJson());
+            JSONArray jsonArray = new JSONArray();
+            for(Medicion o : mediciones){
+                jsonArray.put(o.toJson());
+            }
+            jsonObject.put("mediciones", jsonArray);
+            jsonObject.put("exento", exento);
+            jsonObject.put("dniInspector", dniInspector);
+            jsonObject.put("dominioVehiculo", dominioVehiculo);
+
+
+        }catch (JSONException ex){
+            System.out.println(ex.getMessage());
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            id = jsonObject.getInt("id");
+            nroInspeccion = jsonObject.getInt("nroInspeccion");
+            fecha = jsonObject.getString("fecha");
+            observacion.fromJson(jsonObject.getJSONObject("observacion"));
+            JSONArray jsonArray = jsonObject.getJSONArray("mediciones");
+            for(int i = 0; i<jsonArray.length(); i++){
+                Medicion m = new Medicion();
+                m.fromJson(jsonArray.getJSONObject(i));
+                mediciones.add(m);
+            }
+            exento = jsonObject.getBoolean("exento");
+            dominioVehiculo = jsonObject.getString("dominioVehiculo");
+            dniInspector = jsonObject.getString("dniInspector");
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+
 }

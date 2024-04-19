@@ -1,6 +1,10 @@
 package ModelsInspeccion;
 
 import ModelsEnums.Resultado;
+import ModelsEnums.TipoDueno;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public abstract class Control {
 
@@ -73,4 +77,37 @@ public abstract class Control {
                 ", resultado=" + resultado +
                 '}';
     }
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("descripcion", descripcion);
+            jsonObject.put("resultado", resultado);
+        }catch (JSONException ex){
+            System.out.println(ex.getMessage());
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            id = jsonObject.getInt("id");
+            descripcion = jsonObject.getString("descripcion");
+            String r = jsonObject.getString("resultado");
+            resultado = Resultado.valueOf(r.toUpperCase());
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }

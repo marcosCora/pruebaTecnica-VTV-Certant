@@ -1,6 +1,8 @@
 package ModelsInspeccion;
 
 import ModelsEnums.Resultado;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Observacion extends Control{
 
@@ -29,5 +31,33 @@ public class Observacion extends Control{
                 super.toString() +
                 "componentesInspeccionados='" + componentesInspeccionados + '\'' +
                 '}';
+    }
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = super.toJson();
+        try {
+            jsonObject.put("componentesInspeccionados", componentesInspeccionados);
+        }catch (JSONException ex){
+            System.out.println(ex.getMessage());
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            super.fromJson(jsonObject);
+            componentesInspeccionados = jsonObject.getString("componentesInspeccionados");
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 }

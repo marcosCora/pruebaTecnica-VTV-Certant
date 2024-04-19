@@ -2,6 +2,8 @@ package ModelsInspeccion;
 
 import ModelsEnums.Resultado;
 import ModelsEnums.TipoMedicion;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Medicion extends Control{
 
@@ -32,4 +34,34 @@ public class Medicion extends Control{
                 "tipoMedicion=" + tipoMedicion +
                 '}';
     }
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = super.toJson();
+        try {
+            jsonObject.put("tipoMedicon", tipoMedicion);
+        }catch (JSONException ex){
+            System.out.println(ex.getMessage());
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            super.fromJson(jsonObject);
+            String m = jsonObject.getString("medicion");
+            tipoMedicion = TipoMedicion.valueOf(m.toUpperCase());
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }

@@ -1,6 +1,9 @@
 package ModelsPersona;
 
 import ModelsInspeccion.Inspeccion;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.SimpleTimeZone;
@@ -48,11 +51,50 @@ public class Inspector extends Persona{
 
     public String listaInspecciones(){
         String data = "Inspecciones: \n";
-        for(Inspeccion i : Inspeccion){
+        for(Inspeccion i : inspecciones){
             data += i.toString();
         }
         return data;
     }
 
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = super.toJson();
+        try {
+            jsonObject.put("especialidad", especialidad);
+            JSONArray jsonArray = new JSONArray();
+            for(Inspeccion i : inspecciones){
+                jsonArray.put(i.toJson());
+            }
+            jsonObject.put("inspecciones", jsonArray);
+        }catch (JSONException ex){
+            System.out.println(ex.getMessage());
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            super.fromJson(jsonObject);
+            especialidad = jsonObject.getString("especialidad");
+            JSONArray jsonArray = jsonObject.getJSONArray("inspecciones");
+            for (int i = 0; i<jsonArray.length(); i++){
+                Inspeccion inspeccion = new Inspeccion();
+                inspeccion.fromJson(jsonArray.getJSONObject(i));
+                inspecciones.add(inspeccion);
+            }
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
 
 }
