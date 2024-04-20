@@ -132,13 +132,14 @@ public class Inspeccion implements IFormatFecha {
 
     @Override
     public String toString() {
-        return "\nInspeccion Nº" + nroInspeccion +
-                "Fecha" + fecha + "\t" +
-                observacion.toString() + "\t" +
-                listarMediciones() +
-                "Exento: " + exento +
-                "Dominio Vehiculo: " + dominioVehiculo +
-                "DNI Inspector: " + dniInspector;
+        return "\nInspeccion Nº " + nroInspeccion +
+                "\nFecha: " + fecha +
+                "\nExento: " + exento +
+                "\nDominio Vehiculo: " + dominioVehiculo +
+                "\nDNI Inspector: " + dniInspector +
+                observacion.toString() +
+                listarMediciones();
+
     }
 
     public String listarMediciones(){
@@ -151,7 +152,8 @@ public class Inspeccion implements IFormatFecha {
 
     public  void agreagr(Medicion m){
         if(m != null){
-            m.setId(mediciones.get(mediciones.size()-1).getId() + 1);
+            int ultimoId = mediciones.size();
+            m.setId(ultimoId +1);
            mediciones.add(m);
         }
     }

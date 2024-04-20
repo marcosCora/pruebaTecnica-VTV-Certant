@@ -27,7 +27,7 @@ public class Observacion extends Control{
 
     @Override
     public String toString() {
-        return "\nObservacion" +
+        return "\nOBSERVACION" +
                 super.toString() +
                 "\nComponentes inspeccionados: " + componentesInspeccionados;
     }

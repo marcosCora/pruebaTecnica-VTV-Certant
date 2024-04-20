@@ -29,8 +29,8 @@ public class Medicion extends Control{
 
     @Override
     public String toString() {
-        return "\n\tMedicion de tipo: "+ tipoMedicion +
-                "\t" + super.toString();
+        return "\nMedicion de tipo: "+ tipoMedicion
+                + super.toString();
     }
 
     public JSONObject toJson(){

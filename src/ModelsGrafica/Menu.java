@@ -44,7 +44,8 @@ public class Menu {
     public static void menuPropietarios(){
         System.out.println("MENU -- Ingrese el numero de la opcion que desee");
         System.out.println("1- Listar propietarios");
-        System.out.println("2- Buscar por DNI");
+        System.out.println("2- Añadir Propietario");
+        System.out.println("3- Buscar por DNI");
         System.out.println("9- Atras");
         System.out.println("0- Salir");
     }

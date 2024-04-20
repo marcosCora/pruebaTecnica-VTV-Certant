@@ -19,7 +19,8 @@ public class GestoraInspecciones implements IArchivos {
 
     public void agregar(Inspeccion i){ //lanzar expecion
         if(buscaInspeccionPorNro(i.getNroInspeccion()) == null){
-            i.setId(inspecciones.get(inspecciones.size()-1).getId()+1);
+            int ultimoId = inspecciones.size();
+            i.setId(ultimoId +1);
             inspecciones.add(i);
         }
     }
@@ -52,11 +53,6 @@ public class GestoraInspecciones implements IArchivos {
             inspecciones.remove(aEliminar);
         }
     }
-
-
-
-
-
 
     @Override
     public void guardarArchivo(String nombreArch) {

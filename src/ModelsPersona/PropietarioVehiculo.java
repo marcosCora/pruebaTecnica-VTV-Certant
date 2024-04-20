@@ -44,11 +44,22 @@ public class PropietarioVehiculo extends Persona{
 
     @Override
     public String toString() {
-        return "PropietarioVehiculo{" +
+        return "Propietarios: " +
                 super.toString() +
-                "vehiculos=" + vehiculos +
-                ", tipoDueno=" + tipoDueno +
-                '}';
+                "\nVehiculos: " + listarVehiculos() +
+                "\nTipo de dueño: " + tipoDueno;
+    }
+
+    public String listarVehiculos(){
+        String info = "";
+        if(vehiculos.size() > 0){
+            for(Vehiculo v : vehiculos){
+                info += "\n" + v.toString();
+            }
+        }else{
+            info = "\nNo tiene vehiculo asignado";
+        }
+        return info;
     }
 
     public JSONObject toJson(){

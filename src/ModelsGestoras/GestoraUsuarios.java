@@ -34,13 +34,13 @@ public class GestoraUsuarios{
         Inspector iExistente = buscaInspector(i);
 
         if(iExistente == null){
-            i.setId(buscaUltimoId()+1);
+            i.setId(buscaUltimoIdInspector()+1);
             flag = inspectores.add(i);
         }
         return flag;
     }
 
-    public int buscaUltimoId(){
+    public int buscaUltimoIdInspector(){
         return !inspectores.isEmpty() ? (inspectores.get(inspectores.size()-1)).getId() : 0;
     }
 
@@ -54,10 +54,7 @@ public class GestoraUsuarios{
         return rta;
     }
 
-
-
-    //posible interface
-    public String listar(){
+    public String listarInspectores(){
         String info = "";
         for (Inspector i : inspectores){
             info += "\n" + i.toString();
@@ -65,7 +62,6 @@ public class GestoraUsuarios{
         return info;
     }
 
-    //posible interface
     public void eliminarInspector(String dni){
         Inspector aEliminar = buscaInspectorXDni(dni);
         if(aEliminar != null){
@@ -73,7 +69,6 @@ public class GestoraUsuarios{
         }
     }
 
-    //posible interface
     public Inspector buscaInspectorXDni(String dni){
         Inspector i = null;
         for (Inspector aux : inspectores) {
@@ -83,8 +78,6 @@ public class GestoraUsuarios{
         }
         return i;
     }
-
-
 
     public void guardarArchivoInspectores(String nombreArch) {
         JSONArray jsonArray = new JSONArray();
@@ -114,6 +107,38 @@ public class GestoraUsuarios{
             System.out.println(ex.getMessage());
         }
     }
+
+    //Propietarios
+
+    public PropietarioVehiculo buscarPropietarioDni(String dni){
+        PropietarioVehiculo p = null;
+        for (PropietarioVehiculo aux : propietariosV) {
+            if (aux.getDni().equals(dni)) {
+                p = aux;
+            }
+        }
+        return p;
+    }
+
+    public void agregar(PropietarioVehiculo p){
+        if(p != null){
+            int ultimoId = propietariosV.size();
+            p.setId(ultimoId+1);
+            propietariosV.add(p);
+        }
+    }
+
+    public String listarPropietarios(){
+        String info = "";
+        for(PropietarioVehiculo p : propietariosV){
+            info += "\n" + p.toString();
+        }
+
+        return info;
+    }
+
+
+
 
     public void guardarArchivoPropietarios(String nombreArch) {
         JSONArray jsonArray = new JSONArray();
@@ -146,20 +171,5 @@ public class GestoraUsuarios{
 
 
 
-
-    /*
-    public void guardarArch(String nombreArch){
-        ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-        Vehiculo v = new Vehiculo(1, "Ford", "Falcon SP", "123 abc", "19-04-2024", "43392102");
-        vehiculos.add(v);
-        PropietarioVehiculo p = new PropietarioVehiculo(1, "Marcos", "Corasaniti", "43392102", "48 3344", "2262304691", vehiculos, TipoDueno.EXENTO);
-        guardarArchivo(nombreArch, p);
-    }
-    public void guardarArchivo(String nombreArch, PropietarioVehiculo p){
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(p.toJson());
-        jsonUtiles.grabar(jsonArray, nombreArch);
-    }
-    */
 
 }
