@@ -2,6 +2,7 @@ package ModelsGestoras;
 
 import Interfaces.IArchivos;
 import ModelsInspeccion.Inspeccion;
+import ModelsInspeccion.Medicion;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -51,6 +52,10 @@ public class GestoraInspecciones implements IArchivos {
             inspecciones.remove(aEliminar);
         }
     }
+
+
+
+
 
 
     @Override

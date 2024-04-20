@@ -1,15 +1,18 @@
 package ModelsGestoras;
 
+import Interfaces.IArchivos;
 import ModelsEnums.TipoDueno;
+import ModelsInspeccion.Inspeccion;
 import ModelsPersona.Inspector;
 import ModelsPersona.PropietarioVehiculo;
 import ModelsVehiculo.Vehiculo;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class GestoraUsuarios {
+public class GestoraUsuarios{
 
     private ArrayList<Inspector> inspectores;
     private ArrayList<PropietarioVehiculo> propietariosV;
@@ -83,6 +86,63 @@ public class GestoraUsuarios {
 
 
 
+    public void guardarArchivoInspectores(String nombreArch) {
+        JSONArray jsonArray = new JSONArray();
+        for (Inspector i : inspectores)
+        {
+            jsonArray.put(i.toJson());
+        }
+        jsonUtiles.grabar(jsonArray, nombreArch);
+    }
+
+    public void leerArchivoInspectores(String nombreArch) {
+        try {
+            JSONArray jsonArray = new JSONArray(jsonUtiles.leer(nombreArch));
+            for (int i = 0; i<jsonArray.length(); i++)
+            {
+                Inspector inspector = new Inspector();
+                inspector.fromJson(jsonArray.getJSONObject(i));
+                inspectores.add(inspector);
+            }
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void guardarArchivoPropietarios(String nombreArch) {
+        JSONArray jsonArray = new JSONArray();
+        for (PropietarioVehiculo p : propietariosV)
+        {
+            jsonArray.put(p.toJson());
+        }
+        jsonUtiles.grabar(jsonArray, nombreArch);
+    }
+
+    public void leerArchivoPropietarios(String nombreArch) {
+        try {
+            JSONArray jsonArray = new JSONArray(jsonUtiles.leer(nombreArch));
+            for (int i = 0; i<jsonArray.length(); i++)
+            {
+                PropietarioVehiculo p = new PropietarioVehiculo();
+                p.fromJson(jsonArray.getJSONObject(i));
+                propietariosV.add(p);
+            }
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
 
 
 
@@ -101,39 +161,5 @@ public class GestoraUsuarios {
         jsonUtiles.grabar(jsonArray, nombreArch);
     }
     */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void agregarPropietarios(PropietarioVehiculo p){
-        propietariosV.add(p);
-    }
-
-
-
-
-
-
 
 }
