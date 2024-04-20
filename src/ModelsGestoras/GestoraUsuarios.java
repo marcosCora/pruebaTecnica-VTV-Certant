@@ -108,6 +108,13 @@ public class GestoraUsuarios{
         }
     }
 
+    public void agregarInspecciones(Inspeccion i, String dni){
+        Inspector inspector = buscaInspectorXDni(dni);
+        if(inspector != null){
+            inspector.addInspeccion(i);
+        }
+    }
+
     //Propietarios
 
     public PropietarioVehiculo buscarPropietarioDni(String dni){
@@ -128,6 +135,14 @@ public class GestoraUsuarios{
         }
     }
 
+    //agrega un vehiculo a su correspondiente dueño
+    public void agregarVehiculoP(Vehiculo v, String dni){
+        PropietarioVehiculo p = buscarPropietarioDni(dni);
+        if(p != null){
+            p.addVehiculo(v);
+        }
+    }
+
     public String listarPropietarios(){
         String info = "";
         for(PropietarioVehiculo p : propietariosV){
@@ -142,8 +157,7 @@ public class GestoraUsuarios{
 
     public void guardarArchivoPropietarios(String nombreArch) {
         JSONArray jsonArray = new JSONArray();
-        for (PropietarioVehiculo p : propietariosV)
-        {
+        for (PropietarioVehiculo p : propietariosV) {
             jsonArray.put(p.toJson());
         }
         jsonUtiles.grabar(jsonArray, nombreArch);

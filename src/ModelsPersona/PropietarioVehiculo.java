@@ -62,6 +62,12 @@ public class PropietarioVehiculo extends Persona{
         return info;
     }
 
+    public void addVehiculo(Vehiculo v){
+        if(v != null){
+            vehiculos.add(v);
+        }
+    }
+
     public JSONObject toJson(){
         JSONObject jsonObject = new JSONObject();
         try {

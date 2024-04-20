@@ -11,6 +11,7 @@ import ModelsInspeccion.Inspeccion;
 import ModelsInspeccion.Medicion;
 import ModelsInspeccion.Observacion;
 import ModelsPersona.Inspector;
+import ModelsPersona.Persona;
 import ModelsPersona.PropietarioVehiculo;
 import ModelsVehiculo.Vehiculo;
 
@@ -51,8 +52,9 @@ public class Sistema {
     }
 
 
+
     public void cicloPrograma(){
-        //cargaSistema();
+
 
         do {
             menu.menuPrincipal();
@@ -73,44 +75,47 @@ public class Sistema {
                 case 4:
                     cicloPropietarios();
                     break;
+                case 5:
+                    cargaSistema();
+                    break;
+                case 9:
+                    guardaSistema();
+                    break;
             }
         }while (opcion != 0);
     }
 
     public void cicloVehiculos(){
         do {
-            menu.menuPrincipal();
+            menu.menuVehiculos();
             opcion = teclado.nextInt();
 
             switch (opcion) {
                 case 1:
-                    //listarVehiculos
+                    System.out.println("Vehiculos:");
+                    System.out.println(gestoraVehiculos.listar());
                     break;
 
                 case 2:
-                    //cargarVehiculos
+                    agregarVehiculo();
                     break;
 
                 case 3:
-                    cicloInspectores();
+
                     break;
                 case 4:
-                    cicloPropietarios();
+
+                    break;
+                case 9:
+                    cicloPrograma();
                     break;
             }
         }while (opcion != 0);
     }
 
-    /*
-    System.out.println("MENU -- Ingrese el numero de la opcion que desee");
-    System.out.println("1- Listar Inspecciones");
-    System.out.println("2- Crear nueva inspeccion");
-    System.out.println("3- Borrar inspeccion");
-    System.out.println("4- Listar autos inspeccionados");
-    */
     public void cicloInspecciones(){
         do {
-            menu.menuInspectores();
+            menu.menuInspecciones();
             opcion = teclado.nextInt();
 
             switch (opcion) {
@@ -131,7 +136,30 @@ public class Sistema {
             }
         }while (opcion != 0);
     }
-    public void cicloInspectores(){}
+    public void cicloInspectores(){
+        do {
+            menu.menuInspectores();
+            opcion = teclado.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Inspectores:\n");
+                    System.out.println(gestoraUsuarios.listarInspectores());
+                    break;
+
+                case 2:
+                    agregarInspector();
+                    break;
+
+                case 3:
+                    //buscar por dni
+                    break;
+                case 9:
+                    cicloPrograma();
+                    break;
+            }
+        }while (opcion != 0);
+    }
     public void cicloPropietarios(){
         do {
             menu.menuPropietarios();
@@ -156,8 +184,6 @@ public class Sistema {
             }
         }while (opcion != 0);
     }
-
-
 
 
     public void crearNuevaInspeccion(){
@@ -287,23 +313,19 @@ public class Sistema {
         System.out.println("Nombre:");
         newPropietario.setNombre(teclado.nextLine());
 
-
         System.out.println("Apellido:");
         newPropietario.setApellido(teclado.nextLine());
 
+        System.out.println("Direccion:");
+        newPropietario.setDireccion(teclado.nextLine());
+
+        System.out.println("Telefono:");
+        newPropietario.setTelefono(teclado.nextLine());
 
         System.out.println("DNI:");
-        String dni = teclado.nextLine();
-        PropietarioVehiculo aux = gestoraUsuarios.buscarPropietarioDni(dni);
+        newPropietario.setDni(teclado.nextLine());
 
-        if(aux == null){
-            newPropietario.setDni(dni);
-            System.out.println("Direccion:");
-            newPropietario.setDireccion(teclado.nextLine());
-
-            System.out.println("Telefono:");
-            newPropietario.setTelefono(teclado.nextLine());
-
+        if(gestoraUsuarios.buscarPropietarioDni(newPropietario.getDni()) == null){
             newPropietario.setTipoDueno(tipoDueno());
             gestoraUsuarios.agregar(newPropietario);
         }//crear excepcion si el dni existe
@@ -323,6 +345,59 @@ public class Sistema {
                 break;
         }
         return tDueno;
+    }
+
+    public void agregarInspector(){
+        Inspector newInspector = new Inspector();
+        System.out.println("Ingrese Los Datos del Propietario: ");
+        teclado.nextLine();
+        System.out.println("Nombre:");
+        newInspector.setNombre(teclado.nextLine());
+
+        System.out.println("Apellido:");
+        newInspector.setApellido(teclado.nextLine());
+
+        System.out.println("Direccion:");
+        newInspector.setDireccion(teclado.nextLine());
+
+        System.out.println("Telefono:");
+        newInspector.setTelefono(teclado.nextLine());
+
+        System.out.println("DNI:");
+        newInspector.setDni(teclado.nextLine());
+
+        if(gestoraUsuarios.buscaInspectorXDni(newInspector.getDni()) == null){
+            System.out.println("Especialidad:");
+            newInspector.setEspecialidad(teclado.nextLine());
+            gestoraUsuarios.agregar(newInspector);
+
+        }
+    }
+
+    public void agregarVehiculo(){
+        teclado.nextLine();
+        Vehiculo newVechiculo = new Vehiculo();
+        System.out.println("Ingrese Un Nuevo Vechiulo:\n");
+        System.out.println("DNI del dueño: ");
+        PropietarioVehiculo p = gestoraUsuarios.buscarPropietarioDni(teclado.nextLine());
+        if(p != null){
+            newVechiculo.setDniPropietario(p.getDni());
+            System.out.println("Dominio: ");
+            String dominio = teclado.nextLine();
+            if(gestoraVehiculos.buscaVehiculoXDominio(dominio) == null){
+                newVechiculo.setDominio(dominio);
+                System.out.println("Marca:");
+                newVechiculo.setMarca(teclado.nextLine());
+                System.out.println("Modelo:");
+                newVechiculo.setModelo(teclado.nextLine());
+                gestoraVehiculos.agregar(newVechiculo);
+                gestoraUsuarios.agregarVehiculoP(newVechiculo, p.getDni());
+            }
+        }else{
+            System.out.println("Primero debe ingresar los datos del propietario");
+        }
+
+
     }
 
 }

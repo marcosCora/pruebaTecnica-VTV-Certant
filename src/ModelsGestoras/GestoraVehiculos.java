@@ -2,6 +2,7 @@ package ModelsGestoras;
 
 import Interfaces.IArchivos;
 import ModelsInspeccion.Inspeccion;
+import ModelsPersona.PropietarioVehiculo;
 import ModelsVehiculo.Vehiculo;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +31,23 @@ public class GestoraVehiculos implements IArchivos {
             i++;
         }
         return aBuscar;
+    }
+
+    public void agregar(Vehiculo v){ //lanzar expecion
+        if(buscaVehiculoXDominio(v.getDominio()) == null){
+            int ultimoId = vehiculos.size();
+            v.setId(ultimoId +1);
+            vehiculos.add(v);
+        }
+    }
+
+    public String listar(){
+        String info = "";
+        for(Vehiculo v : vehiculos){
+            info += "\n" + v.toString();
+        }
+
+        return info;
     }
 
 

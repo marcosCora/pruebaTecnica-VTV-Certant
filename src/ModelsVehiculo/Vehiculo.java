@@ -79,7 +79,7 @@ public class Vehiculo {
         return dniPropietario;
     }
 
-    public void setPropietario(String dniPropietario) {
+    public void setDniPropietario(String dniPropietario) {
         this.dniPropietario = dniPropietario;
     }
 
@@ -99,14 +99,12 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        return "Vehiculo{" +
-                "id=" + id +
-                ", marca='" + marca + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", dominio='" + dominio + '\'' +
-                ", fechaEmisionVtv='" + fechaEmisionVtv + '\'' +
-                ", propietario=" + dniPropietario +
-                '}';
+        return  "\nID: " + id +
+                "\nMarca: " + marca +
+                "\nModelo: " + modelo +
+                "\nDominio:" + dominio +
+                "\nFecha de emision de VTV: " + fechaEmisionVtv +
+                "\nDni Propietario: " + dniPropietario;
     }
 
     public JSONObject toJson(){

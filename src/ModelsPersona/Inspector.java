@@ -1,6 +1,7 @@
 package ModelsPersona;
 
 import ModelsInspeccion.Inspeccion;
+import ModelsVehiculo.Vehiculo;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,18 +46,27 @@ public class Inspector extends Persona{
     public String toString() {
         return "Inspector: " + "\n" +
                 super.toString() +
-                "\nEspecialidad: " + especialidad + '\'' +
-                "\nInspecciones=" + listaInspecciones();
+                "\nEspecialidad: " + especialidad +
+                "\nInspecciones: " + listaInspecciones();
     }
 
     public String listaInspecciones(){
         String data = "Inspecciones: \n";
-        for(Inspeccion i : inspecciones){
+        if (inspecciones.size() > 0){
+            for(Inspeccion i : inspecciones){
             data += i.toString();
+            }
+        }else {
+            data = "Aun no hay inspecciones";
         }
         return data;
     }
 
+    public void addInspeccion(Inspeccion i){
+        if(i != null){
+            inspecciones.add(i);
+        }
+    }
 
     public JSONObject toJson(){
         JSONObject jsonObject = new JSONObject();
