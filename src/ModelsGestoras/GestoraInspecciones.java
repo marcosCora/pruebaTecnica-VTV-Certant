@@ -1,10 +1,13 @@
 package ModelsGestoras;
 
+import Interfaces.IArchivos;
 import ModelsInspeccion.Inspeccion;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class GestoraInspecciones {
+public class GestoraInspecciones implements IArchivos {
 
     private ArrayList<Inspeccion> inspecciones;
 
@@ -50,9 +53,34 @@ public class GestoraInspecciones {
     }
 
 
+    @Override
+    public void guardarArchivo(String nombreArch) {
+        JSONArray jsonArray = new JSONArray();
+        for (Inspeccion i : inspecciones)
+        {
+            jsonArray.put(i.toJson());
+        }
+        jsonUtiles.grabar(jsonArray, nombreArch);
+    }
 
-
-
-
-
+    @Override
+    public void leerArchivo(String nombreArch) {
+        try {
+            JSONArray jsonArray = new JSONArray(jsonUtiles.leer(nombreArch));
+            for (int i = 0; i<jsonArray.length(); i++)
+            {
+                Inspeccion inspeccion = new Inspeccion();
+                inspeccion.fromJson(jsonArray.getJSONObject(i));
+                inspecciones.add(inspeccion);
+            }
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
 }
