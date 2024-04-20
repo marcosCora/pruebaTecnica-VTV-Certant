@@ -1,6 +1,10 @@
 package ModelsInspeccion;
 
 import ModelsEnums.Resultado;
+import ModelsEnums.TipoDueno;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public abstract class Control {
 
@@ -67,10 +71,25 @@ public abstract class Control {
 
     @Override
     public String toString() {
-        return "Control{" +
-                "id=" + id +
-                ", descripcion='" + descripcion + '\'' +
-                ", resultado=" + resultado +
-                '}';
+        return  "\nID: " + id +
+                "\nDescripcion: " + descripcion +
+                "\nResultado: " + resultado;
     }
+
+    public JSONObject toJson() throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id);
+        jsonObject.put("descripcion", descripcion);
+        jsonObject.put("resultado", resultado);
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) throws JSONException {
+            id = jsonObject.getInt("id");
+            descripcion = jsonObject.getString("descripcion");
+            String r = jsonObject.getString("resultado");
+            resultado = Resultado.valueOf(r.toUpperCase());
+    }
+
 }

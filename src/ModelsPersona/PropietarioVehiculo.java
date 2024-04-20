@@ -1,7 +1,11 @@
 package ModelsPersona;
 
 import ModelsEnums.TipoDueno;
+import ModelsInspeccion.Medicion;
 import ModelsVehiculo.Vehiculo;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -40,10 +44,69 @@ public class PropietarioVehiculo extends Persona{
 
     @Override
     public String toString() {
-        return "PropietarioVehiculo{" +
+        return "Propietarios: " +
                 super.toString() +
-                "vehiculos=" + vehiculos +
-                ", tipoDueno=" + tipoDueno +
-                '}';
+                "\nVehiculos: " + listarVehiculos() +
+                "\nTipo de dueño: " + tipoDueno;
     }
+
+    public String listarVehiculos(){
+        String info = "";
+        if(vehiculos.size() > 0){
+            for(Vehiculo v : vehiculos){
+                info += "\n" + v.toString();
+            }
+        }else{
+            info = "\nNo tiene vehiculo asignado";
+        }
+        return info;
+    }
+
+    public void addVehiculo(Vehiculo v){
+        if(v != null){
+            vehiculos.add(v);
+        }
+    }
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = super.toJson();
+            JSONArray jsonArray = new JSONArray();
+            for(Vehiculo v : vehiculos){
+                jsonArray.put(v.toJson());
+            }
+            jsonObject.put("vehiculos", jsonArray);
+            jsonObject.put("tipoDueno", tipoDueno);
+        }catch (JSONException ex){
+            System.out.println(ex.getMessage());
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            super.fromJson(jsonObject);
+            JSONArray jsonArray = jsonObject.getJSONArray("vehiculos");
+            for(int i = 0; i<jsonArray.length(); i++){
+                Vehiculo v = new Vehiculo();
+                v.fromJson(jsonArray.getJSONObject(i));
+                vehiculos.add(v);
+            }
+            String tipoD = jsonObject.getString("tipoDueno");
+            tipoDueno = TipoDueno.valueOf(tipoD.toUpperCase());
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }

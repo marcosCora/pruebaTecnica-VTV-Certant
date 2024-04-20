@@ -1,8 +1,13 @@
 package ModelsPersona;
 
 import ModelsInspeccion.Inspeccion;
+import ModelsVehiculo.Vehiculo;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.SimpleTimeZone;
 
 public class Inspector extends Persona{
     private String especialidad;
@@ -39,12 +44,68 @@ public class Inspector extends Persona{
 
     @Override
     public String toString() {
-        return "Inspector{" +
+        return "Inspector: " + "\n" +
                 super.toString() +
-                "especialidad='" + especialidad + '\'' +
-                ", inspecciones=" + inspecciones +
-                '}';
+                "\nEspecialidad: " + especialidad +
+                "\nInspecciones: " + listaInspecciones();
     }
 
+    public String listaInspecciones(){
+        String data = "Inspecciones: \n";
+        if (inspecciones.size() > 0){
+            for(Inspeccion i : inspecciones){
+            data += i.toString();
+            }
+        }else {
+            data = "Aun no hay inspecciones";
+        }
+        return data;
+    }
+
+    public void addInspeccion(Inspeccion i){
+        if(i != null){
+            inspecciones.add(i);
+        }
+    }
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = super.toJson();
+            jsonObject.put("especialidad", especialidad);
+            JSONArray jsonArray = new JSONArray();
+            for(Inspeccion i : inspecciones){
+                jsonArray.put(i.toJson());
+            }
+            jsonObject.put("inspecciones", jsonArray);
+        }catch (JSONException ex){
+            System.out.println(ex.getMessage());
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            super.fromJson(jsonObject);
+            especialidad = jsonObject.getString("especialidad");
+            JSONArray jsonArray = jsonObject.getJSONArray("inspecciones");
+            for (int i = 0; i<jsonArray.length(); i++){
+                Inspeccion inspeccion = new Inspeccion();
+                inspeccion.fromJson(jsonArray.getJSONObject(i));
+                inspecciones.add(inspeccion);
+            }
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
 
 }

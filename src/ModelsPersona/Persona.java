@@ -1,5 +1,8 @@
 package ModelsPersona;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 public abstract class Persona {
@@ -81,9 +84,9 @@ public abstract class Persona {
     public boolean equals(Object obj) {
         boolean rta = false;
         if(obj != null){
-            if(obj instanceof Persona){
+            if(obj instanceof Persona) {
                 Persona aux = (Persona) obj;
-                if(id == aux.id && obj.equals(dni)){
+                if (id == aux.id && obj.equals(dni)) {
                     rta = true;
                 }
             }
@@ -93,13 +96,33 @@ public abstract class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", dni='" + dni + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", telefono='" + telefono + '\'' +
-                '}';
+        return "\nID: " + id +
+                "\nNombre: "  + nombre +
+                "\nApellido: " + apellido +
+                "\nDNI: " + dni +
+                "\nDireccion: " + direccion +
+                "\nTelefono: " + telefono;
+    }
+
+    public JSONObject toJson() throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("id", id);
+        jsonObject.put("nombre", nombre);
+        jsonObject.put("apellido", apellido);
+        jsonObject.put("dni", dni);
+        jsonObject.put("direccion", direccion);
+        jsonObject.put("telefono", telefono);
+
+        return jsonObject;
+    }
+
+    public void fromJson(JSONObject jsonObject) throws JSONException {
+        id = jsonObject.getInt("id");
+        nombre = jsonObject.getString("nombre");
+        apellido = jsonObject.getString("apellido");
+        dni = jsonObject.getString("dni");
+        direccion = jsonObject.getString("direccion");
+        telefono = jsonObject.getString("telefono");
     }
 }

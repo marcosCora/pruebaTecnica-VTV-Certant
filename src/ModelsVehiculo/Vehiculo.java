@@ -1,7 +1,11 @@
 package ModelsVehiculo;
 
+import ModelsInspeccion.Medicion;
 import ModelsPersona.Persona;
 import ModelsPersona.PropietarioVehiculo;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -11,7 +15,7 @@ public class Vehiculo {
     private String modelo;
     private String dominio;
     private String fechaEmisionVtv;
-    private PropietarioVehiculo propietario;
+    private String dniPropietario;
 
     public Vehiculo() {
         this.id = 0;
@@ -19,16 +23,16 @@ public class Vehiculo {
         this.modelo = "";
         this.dominio = "";
         this.fechaEmisionVtv = "";
-        this.propietario = null;
+        this.dniPropietario = " ";
     }
 
-    public Vehiculo(int id, String marca, String modelo, String dominio, String fechaEmisionVtv, PropietarioVehiculo propietario) {
+    public Vehiculo(int id, String marca, String modelo, String dominio, String fechaEmisionVtv, String dniPropietario) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.dominio = dominio;
         this.fechaEmisionVtv = fechaEmisionVtv;
-        this.propietario = propietario;
+        this.dniPropietario = dniPropietario;
     }
 
     public int getId() {
@@ -71,12 +75,12 @@ public class Vehiculo {
         this.fechaEmisionVtv = fechaEmisionVtv;
     }
 
-    public PropietarioVehiculo getPropietario() {
-        return propietario;
+    public String getPropietario() {
+        return dniPropietario;
     }
 
-    public void setPropietario(PropietarioVehiculo propietario) {
-        this.propietario = propietario;
+    public void setDniPropietario(String dniPropietario) {
+        this.dniPropietario = dniPropietario;
     }
 
     @Override
@@ -95,13 +99,51 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        return "Vehiculo{" +
-                "id=" + id +
-                ", marca='" + marca + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", dominio='" + dominio + '\'' +
-                ", fechaEmisionVtv='" + fechaEmisionVtv + '\'' +
-                ", propietario=" + propietario +
-                '}';
+        return  "\nID: " + id +
+                "\nMarca: " + marca +
+                "\nModelo: " + modelo +
+                "\nDominio:" + dominio +
+                "\nFecha de emision de VTV: " + fechaEmisionVtv +
+                "\nDni Propietario: " + dniPropietario;
     }
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("marca", marca);
+            jsonObject.put("modelo", modelo);
+            jsonObject.put("dominio", dominio);
+            jsonObject.put("fechaEmsionVtv", fechaEmisionVtv);
+            jsonObject.put("dniPropietario", dniPropietario);
+        }catch (JSONException ex){
+            System.out.println(ex.getMessage());
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return jsonObject;
+    }
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            id = jsonObject.getInt("id");
+            marca = jsonObject.getString("marca");
+            modelo = jsonObject.getString("modelo");
+            dominio = jsonObject.getString("dominio");
+            fechaEmisionVtv = jsonObject.getString("fechaEmsionVtv");
+            dniPropietario = jsonObject.getString("dniPropietario");
+
+        }
+        catch (JSONException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+
+
+
 }
