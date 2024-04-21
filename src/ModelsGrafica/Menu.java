@@ -8,8 +8,6 @@ public class Menu {
         System.out.println("2- Inspecciones");
         System.out.println("3- Inspectores");
         System.out.println("4- Propietarios");
-        System.out.println("5- Cargar sistema");
-        System.out.println("9- Guardar");
         System.out.println("0- Salir");
     }
 
@@ -19,8 +17,8 @@ public class Menu {
         System.out.println("2- Añadir vehiculo");
         System.out.println("3- Borrar vehiculo");
         System.out.println("4- Fecha de vencimiento de VTV");
-        System.out.println("9- Atras y Guardar");
-        System.out.println("0- Salir");
+        System.out.println("9- Atras");
+        System.out.println("0- Salir y guardar");
     }
 
     public static void menuInspecciones(){
@@ -29,8 +27,8 @@ public class Menu {
         System.out.println("2- Crear nueva inspeccion");
         System.out.println("3- Borrar inspeccion");
         System.out.println("4- Listar autos inspeccionados");
-        System.out.println("9- Atras y Guardar");
-        System.out.println("0- Salir");
+        System.out.println("9- Atras");
+        System.out.println("0- Salir y guardar");
     }
 
     public static void menuInspectores(){
@@ -38,8 +36,8 @@ public class Menu {
         System.out.println("1- Listar inspectores");
         System.out.println("2- Añadir inspector");
         System.out.println("3- Borrar inspector");
-        System.out.println("9- Atras y Guardar");
-        System.out.println("0- Salir");
+        System.out.println("9- Atras");
+        System.out.println("0- Salir y guardar");
     }
 
     public static void menuPropietarios(){
@@ -47,8 +45,8 @@ public class Menu {
         System.out.println("1- Listar propietarios");
         System.out.println("2- Añadir Propietario");
         System.out.println("3- Buscar por DNI");
-        System.out.println("9- Atras y Guardar");
-        System.out.println("0- Salir");
+        System.out.println("9- Atras");
+        System.out.println("0- Salir y guardar");
     }
 
 

@@ -15,6 +15,7 @@ import ModelsPersona.Persona;
 import ModelsPersona.PropietarioVehiculo;
 import ModelsVehiculo.Vehiculo;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Sistema {
@@ -35,6 +36,7 @@ public class Sistema {
         gestoraFacturas = new GestoraFacturas();
         this.teclado = new Scanner(System.in);
         this.opcion = -1;
+        cargaSistema();
     }
 
     public void cargaSistema(){
@@ -75,12 +77,6 @@ public class Sistema {
                 case 4:
                     cicloPropietarios();
                     break;
-                case 5:
-                    cargaSistema();
-                    break;
-                case 9:
-                    guardaSistema();
-                    break;
             }
         }while (opcion != 0);
     }
@@ -120,6 +116,7 @@ public class Sistema {
 
             switch (opcion) {
                 case 1:
+                    System.out.println("hola");
                     System.out.println(gestoraInspecciones.listar());
                     break;
 
@@ -185,13 +182,10 @@ public class Sistema {
         }while (opcion != 0);
     }
 
-
     public void crearNuevaInspeccion(){
         Inspeccion newInspeccion = new Inspeccion();
 
         System.out.println("\nIngrese los datos de la nueva inspeccion");
-        System.out.println("Nº Inspeccion: ");
-        newInspeccion.setNroInspeccion(teclado.nextInt());
 
         teclado.nextLine();
 
@@ -209,6 +203,9 @@ public class Sistema {
                 newInspeccion.setObservacion(creaObservacion());
                 teclado.nextLine();
                 creaNuevasMediciones(newInspeccion);
+
+                buscaTipoDueno(newInspeccion, vehiculo);
+
                 gestoraUsuarios.agregarInspecciones(newInspeccion, inspector.getDni());
                 gestoraInspecciones.agregar(newInspeccion);
                 teclado.nextLine();
@@ -236,75 +233,86 @@ public class Sistema {
     public void creaNuevasMediciones(Inspeccion i){
         System.out.println("\nMedcion:");
         do {
-            Medicion m = new Medicion();
-            System.out.println("Ingresa el tipo de medicion: ");
-            m.setTipoMedicion(tipoMedicion());
+            try{
+                Medicion m = new Medicion();
+                System.out.println("Ingresa el tipo de medicion: ");
+                m.setTipoMedicion(tipoMedicion());
+
+                teclado.nextLine();
+
+                System.out.println("Ingrese la descripcion;");
+                m.setDescripcion(teclado.nextLine());
+
+                teclado.nextLine();
+
+                System.out.println("Ingresa el resultado: ");
+                m.setResultado(resultado());
+
+                teclado.nextLine();
+
+                i.agreagr(m);
+
+                System.out.println("Ingrese 9 para no agregar mas mediciones - Otro para continuar");
+                opcion = teclado.nextInt(); //crear excepcion
+                teclado.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println("Error: debe ingresar un numero para continuar o seguir");
+                opcion = -1;
+                teclado.nextLine();
+            }
 
 
-            teclado.nextLine();
-
-            System.out.println("Ingrese la descripcion;");
-            m.setDescripcion(teclado.nextLine());
-
-            teclado.nextLine();
-
-            System.out.println("Ingresa el resultado: ");
-            m.setResultado(resultado());
-
-            teclado.nextLine();
-
-            i.agreagr(m);
-
-            System.out.println("Ingrese 9 para no agregar mas mediciones - Otro para continuar");
-            opcion = teclado.nextInt(); //crear excepcion
-            teclado.nextLine();
         }while (opcion != 9);
     }
 
     public TipoMedicion tipoMedicion(){
-        System.out.println("1-SUSPENSION, 2-DIRECCION, 3-TRENDELANTERO, 4-FRENOS, 5-CONTAMINACION");
-        int opcion = teclado.nextInt();
 
-        teclado.nextLine();
         TipoMedicion tipoM = null;
-        switch (opcion)
-        {
-            case 1:
-                tipoM = TipoMedicion.SUSPENSION;
-                break;
-            case 2:
-                tipoM = TipoMedicion.DIRECCION;
-                break;
-            case 3:
-                tipoM = TipoMedicion.TRENDELANTERO;
-                break;
-            case 4:
-                tipoM = TipoMedicion.FRENOS;
-                break;
-            case 5:
-                tipoM = TipoMedicion.CONTAMINACION;
-                break;
-        }
+        do{
+            System.out.println("1-SUSPENSION, 2-DIRECCION, 3-TRENDELANTERO, 4-FRENOS, 5-CONTAMINACION");
+            int opcion = teclado.nextInt();
+            teclado.nextLine();
+            switch (opcion)
+            {
+                case 1:
+                    tipoM = TipoMedicion.SUSPENSION;
+                    break;
+                case 2:
+                    tipoM = TipoMedicion.DIRECCION;
+                    break;
+                case 3:
+                    tipoM = TipoMedicion.TRENDELANTERO;
+                    break;
+                case 4:
+                    tipoM = TipoMedicion.FRENOS;
+                    break;
+                case 5:
+                    tipoM = TipoMedicion.CONTAMINACION;
+                    break;
+            }
+        }while (tipoM == null);
         return tipoM;
     }
 
     public Resultado resultado(){
-        System.out.println("1-APTO, 2-CONDICIONAL, 3-RECHAZADO");
-        int opcion = teclado.nextInt();
-        teclado.nextLine();
         Resultado r = null;
-        switch (opcion)
-        {
-            case 1:
-                r = Resultado.APTO;
-                break;
-            case 2:
-                r = Resultado.CONDICIONAL;
-                break;
-            case 3:
-                r = Resultado.RECHAZADO;
-                break;
-        }
+        do{
+            System.out.println("\n1-APTO, 2-CONDICIONAL, 3-RECHAZADO");
+            int opcion = teclado.nextInt();
+            teclado.nextLine();
+            switch (opcion) {
+                case 1:
+                    r = Resultado.APTO;
+                    break;
+                case 2:
+                    r = Resultado.CONDICIONAL;
+                    break;
+                case 3:
+                    r = Resultado.RECHAZADO;
+                    break;
+            }
+        }while (r == null);
+
         return r;
     }
 
@@ -400,6 +408,15 @@ public class Sistema {
         }
 
 
+    }
+
+    public void buscaTipoDueno(Inspeccion i, Vehiculo v){
+        PropietarioVehiculo p = gestoraUsuarios.buscarPropietarioDni(v.getPropietario());
+        if(p != null){
+            if(p.getTipoDueno() == TipoDueno.EXENTO){
+                i.setExento(true);
+            }
+        }
     }
 
 }

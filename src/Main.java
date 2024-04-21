@@ -6,5 +6,6 @@ public class Main {
 
         Sistema sistema = new Sistema();
         sistema.cicloPrograma();
+        sistema.guardaSistema();
     }
 }

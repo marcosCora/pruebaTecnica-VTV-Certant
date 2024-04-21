@@ -38,5 +38,37 @@
         "id": 5,
         "modelo": "CRV",
         "dniPropietario": "44523698"
+    },
+    {
+        "marca": "Chevrolet",
+        "fechaEmsionVtv": "",
+        "dominio": "ASR321",
+        "id": 6,
+        "modelo": "Chevy SS",
+        "dniPropietario": "12321123"
+    },
+    {
+        "marca": "Fiat",
+        "fechaEmsionVtv": "",
+        "dominio": "AA342BR",
+        "id": 7,
+        "modelo": "Toro",
+        "dniPropietario": "17520046"
+    },
+    {
+        "marca": "Dodge",
+        "fechaEmsionVtv": "",
+        "dominio": "AA523FF",
+        "id": 8,
+        "modelo": "Ram",
+        "dniPropietario": "18918998"
+    },
+    {
+        "marca": "Toyota",
+        "fechaEmsionVtv": "",
+        "dominio": "QWE345",
+        "id": 9,
+        "modelo": "Hilux",
+        "dniPropietario": "1112211"
     }
 ]

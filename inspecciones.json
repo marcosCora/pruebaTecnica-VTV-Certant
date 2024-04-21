@@ -1,7 +1,7 @@
 [
     {
         "fecha": "21-04-2024 08:57:52",
-        "exento": false,
+        "exento": true,
         "mediciones": [
             {
                 "descripcion": "Frenos en buen estado",
@@ -28,7 +28,6 @@
                 "tipoMedicon": "TRENDELANTERO"
             }
         ],
-        "nroInspeccion": 1,
         "id": 1,
         "dominioVehiculo": "AAA345",
         "observacion": {
@@ -56,7 +55,6 @@
                 "tipoMedicon": "SUSPENSION"
             }
         ],
-        "nroInspeccion": 2,
         "id": 2,
         "dominioVehiculo": "ASR154",
         "observacion": {
@@ -84,7 +82,6 @@
                 "tipoMedicon": "SUSPENSION"
             }
         ],
-        "nroInspeccion": 3,
         "id": 3,
         "dominioVehiculo": "AS212ER",
         "observacion": {
@@ -112,7 +109,6 @@
                 "tipoMedicon": "SUSPENSION"
             }
         ],
-        "nroInspeccion": 4,
         "id": 4,
         "dominioVehiculo": "ASA234",
         "observacion": {
@@ -122,5 +118,32 @@
             "id": 0
         },
         "dniInspector": "16256336"
+    },
+    {
+        "fecha": "21-04-2024 17:46:01",
+        "exento": false,
+        "mediciones": [
+            {
+                "descripcion": "mala suspencion",
+                "resultado": "RECHAZADO",
+                "id": 1,
+                "tipoMedicon": "DIRECCION"
+            },
+            {
+                "descripcion": "Humo negro",
+                "resultado": "RECHAZADO",
+                "id": 2,
+                "tipoMedicon": "CONTAMINACION"
+            }
+        ],
+        "id": 5,
+        "dominioVehiculo": "ASA234",
+        "observacion": {
+            "descripcion": "Todo mal esta",
+            "componentesInspeccionados": "luces-cintos-gomas",
+            "resultado": "RECHAZADO",
+            "id": 0
+        },
+        "dniInspector": "46321002"
     }
 ]

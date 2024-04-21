@@ -44,8 +44,7 @@ public class PropietarioVehiculo extends Persona{
 
     @Override
     public String toString() {
-        return "Propietarios: " +
-                super.toString() +
+        return  super.toString() +
                 "\nVehiculos: " + listarVehiculos() +
                 "\nTipo de dueño: " + tipoDueno;
     }
