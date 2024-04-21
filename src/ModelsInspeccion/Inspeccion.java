@@ -1,6 +1,7 @@
 package ModelsInspeccion;
 
 import Interfaces.IFormatFecha;
+import ModelsEnums.Resultado;
 import ModelsPersona.Inspector;
 import ModelsVehiculo.Vehiculo;
 import org.json.JSONArray;
@@ -150,6 +151,7 @@ public class Inspeccion implements IFormatFecha {
         return info;
     }
 
+    //agrega medicion al array de mediciones
     public  void agreagr(Medicion m){
         if(m != null){
             int ultimoId = mediciones.size();
@@ -157,17 +159,33 @@ public class Inspeccion implements IFormatFecha {
            mediciones.add(m);
         }
     }
-    public void agregar(ArrayList<Medicion> m){
-        if(m != null){
-            mediciones = m;
-        }
-    }
+
+    //agrega observacion
     public  void agreagr(Observacion o){
         if(o != null){
             observacion = o;
         }
     }
 
+    public Resultado resultadoMediciones(){
+        Resultado rta = null;
+        int i  = 0;
+        while (i < mediciones.size()){
+            if(mediciones.get(i).getResultado() == Resultado.CONDICIONAL || mediciones.get(i).getResultado() == Resultado.RECHAZADO){
+                rta = mediciones.get(i).getResultado();
+            }
+        }
+        return rta;
+    }
+
+    public Resultado resultadoInspeccion(){
+        Resultado resultado = null;
+        if(observacion.getResultado() == Resultado.APTO && resultadoMediciones() == Resultado.APTO){
+            resultado = Resultado.APTO;
+        }else if(observacion.getResultado() == Resultado.CONDICIONAL || resultadoMediciones() == Resultado.CONDICIONAL){
+            resultado = Resultado.CONDICIONAL;
+        }
+    }
 
     public JSONObject toJson(){
         JSONObject jsonObject = new JSONObject();

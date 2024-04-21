@@ -1,1 +1,96 @@
-[{"apellido":"Corasaniti","tipoDueno":"EXENTO","direccion":"48 3344","id":1,"telefono":"2262304691","nombre":"Marcos","dni":"43392102","vehiculos":[]}]
+[
+    {
+        "apellido": "Corasaniti",
+        "tipoDueno": "EXENTO",
+        "direccion": "48 3344",
+        "id": 1,
+        "telefono": "2262304691",
+        "nombre": "Marcos",
+        "dni": "43392102",
+        "vehiculos": [
+            {
+                "marca": "Ford",
+                "fechaEmsionVtv": "",
+                "dominio": "AAA345",
+                "id": 1,
+                "modelo": "Falcon SP",
+                "dniPropietario": "43392102"
+            },
+            {
+                "marca": "Ford",
+                "fechaEmsionVtv": "",
+                "dominio": "ASA234",
+                "id": 3,
+                "modelo": "F100",
+                "dniPropietario": "43392102"
+            }
+        ]
+    },
+    {
+        "apellido": "Kjer",
+        "tipoDueno": "COMUN",
+        "direccion": "521 589",
+        "id": 2,
+        "telefono": "2262359856",
+        "nombre": "Karla",
+        "dni": "42563201",
+        "vehiculos": [
+            {
+                "marca": "Chevrolet",
+                "fechaEmsionVtv": "",
+                "dominio": "AB214CC",
+                "id": 2,
+                "modelo": "Onix",
+                "dniPropietario": "42563201"
+            }
+        ]
+    },
+    {
+        "apellido": "Mader",
+        "tipoDueno": "COMUN",
+        "direccion": "26 523",
+        "id": 3,
+        "telefono": "2262541236",
+        "nombre": "Ramiro ",
+        "dni": "42569852",
+        "vehiculos": [
+            {
+                "marca": "Toyota",
+                "fechaEmsionVtv": "",
+                "dominio": "AS212ER",
+                "id": 4,
+                "modelo": "Corolla",
+                "dniPropietario": "42569852"
+            }
+        ]
+    },
+    {
+        "apellido": "Betbeder",
+        "tipoDueno": "COMUN",
+        "direccion": "Buenos aires 214",
+        "id": 4,
+        "telefono": "2262521485",
+        "nombre": "Tiago",
+        "dni": "44523698",
+        "vehiculos": [
+            {
+                "marca": "Honda",
+                "fechaEmsionVtv": "",
+                "dominio": "ASR154",
+                "id": 5,
+                "modelo": "CRV",
+                "dniPropietario": "44523698"
+            }
+        ]
+    },
+    {
+        "apellido": "Bejino",
+        "tipoDueno": "COMUN",
+        "direccion": "Las heras 321",
+        "id": 5,
+        "telefono": "2232564125",
+        "nombre": "Lucia",
+        "dni": "40258963",
+        "vehiculos": []
+    }
+]

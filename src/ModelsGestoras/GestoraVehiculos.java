@@ -24,7 +24,7 @@ public class GestoraVehiculos implements IArchivos {
         int i = 0;
 
         while (i < vehiculos.size() && flag == false){
-            if(dominio == vehiculos.get(i).getDominio()){
+            if(vehiculos.get(i).getDominio().equals(dominio)){
                 aBuscar = vehiculos.get(i);
                 flag = true;
             }

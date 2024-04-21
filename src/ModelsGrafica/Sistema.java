@@ -167,7 +167,7 @@ public class Sistema {
 
             switch (opcion) {
                 case 1:
-                    System.out.println("Propietarios cargados:\n");
+                    System.out.println("\nPropietarios cargados:\n\n");
                     System.out.println(gestoraUsuarios.listarPropietarios());
                     break;
 
@@ -199,33 +199,34 @@ public class Sistema {
         Inspector inspector = gestoraUsuarios.buscaInspectorXDni(teclado.nextLine());
         if(inspector != null){
             newInspeccion.setdniInspector(inspector.getDni());
+            teclado.nextLine();
+
+            System.out.println("Ingrese el dominio del vehiculo: ");
+            Vehiculo vehiculo = gestoraVehiculos.buscaVehiculoXDominio(teclado.nextLine());
+            if(vehiculo != null){
+                newInspeccion.setDominioVehiculo(vehiculo.getDominio());
+                teclado.nextLine();
+                newInspeccion.setObservacion(creaObservacion());
+                teclado.nextLine();
+                creaNuevasMediciones(newInspeccion);
+                gestoraUsuarios.agregarInspecciones(newInspeccion, inspector.getDni());
+                gestoraInspecciones.agregar(newInspeccion);
+                teclado.nextLine();
+            }//generar nuevo vehiculo en caso de que lo necesite
+
         }//debo llamar la opcion para crear nuevo inspector en caso de que no exista
-
-        teclado.nextLine();
-
-        System.out.println("Ingrese el dominio del vehiculo: ");
-        Vehiculo vehiculo = gestoraVehiculos.buscaVehiculoXDominio(teclado.nextLine());
-        if(vehiculo != null){
-            newInspeccion.setDominioVehiculo(vehiculo.getDominio());
-        }//generar nuevo vehiculo en caso de que lo necesite
-        teclado.nextLine();
-        newInspeccion.setObservacion(creaObservacion());
-        teclado.nextLine();
-        creaNuevasMediciones(newInspeccion);
-        gestoraInspecciones.agregar(newInspeccion);
-        teclado.nextLine();
     }
 
     public Observacion creaObservacion(){
         Observacion o = new Observacion();
-        System.out.println("\nObservacion");
+        System.out.println("Observacion");
         System.out.println("Ingrese la descripcion:");
         o.setDescripcion(teclado.nextLine());
 
         System.out.println("Componentes Inspeccionados: ");
         o.setComponentesInspeccionados(teclado.nextLine());
 
-        System.out.println("\nIngresa el resultado: ");
+        System.out.println("Ingresa el resultado: ");
         o.setResultado(resultado());
         teclado.nextLine();
 
@@ -233,20 +234,21 @@ public class Sistema {
     }
 
     public void creaNuevasMediciones(Inspeccion i){
-        System.out.println("\nMedcion: \n");
-        Medicion m = new Medicion();
+        System.out.println("\nMedcion:");
         do {
+            Medicion m = new Medicion();
+            System.out.println("Ingresa el tipo de medicion: ");
+            m.setTipoMedicion(tipoMedicion());
+
+
+            teclado.nextLine();
+
             System.out.println("Ingrese la descripcion;");
             m.setDescripcion(teclado.nextLine());
 
             teclado.nextLine();
 
-            System.out.println("\nIngresa el tipo de medicion: ");
-            m.setTipoMedicion(tipoMedicion());
-
-            teclado.nextLine();
-
-            System.out.println("\nIngresa el resultado: ");
+            System.out.println("Ingresa el resultado: ");
             m.setResultado(resultado());
 
             teclado.nextLine();
@@ -254,7 +256,7 @@ public class Sistema {
             i.agreagr(m);
 
             System.out.println("Ingrese 9 para no agregar mas mediciones - Otro para continuar");
-            opcion = teclado.nextInt();
+            opcion = teclado.nextInt(); //crear excepcion
             teclado.nextLine();
         }while (opcion != 9);
     }

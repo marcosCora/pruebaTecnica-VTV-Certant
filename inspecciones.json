@@ -1,0 +1,126 @@
+[
+    {
+        "fecha": "21-04-2024 08:57:52",
+        "exento": false,
+        "mediciones": [
+            {
+                "descripcion": "Frenos en buen estado",
+                "resultado": "APTO",
+                "id": 1,
+                "tipoMedicon": "FRENOS"
+            },
+            {
+                "descripcion": "Suspencion con buen recorrido",
+                "resultado": "APTO",
+                "id": 2,
+                "tipoMedicon": "SUSPENSION"
+            },
+            {
+                "descripcion": "Contamina un poco de mas",
+                "resultado": "CONDICIONAL",
+                "id": 3,
+                "tipoMedicon": "CONTAMINACION"
+            },
+            {
+                "descripcion": "Buena alineacion",
+                "resultado": "APTO",
+                "id": 4,
+                "tipoMedicon": "TRENDELANTERO"
+            }
+        ],
+        "nroInspeccion": 1,
+        "id": 1,
+        "dominioVehiculo": "AAA345",
+        "observacion": {
+            "descripcion": "Buene estado general",
+            "componentesInspeccionados": "luces-gomas-cinturones",
+            "resultado": "APTO",
+            "id": 0
+        },
+        "dniInspector": "35202001"
+    },
+    {
+        "fecha": "21-04-2024 09:11:03",
+        "exento": false,
+        "mediciones": [
+            {
+                "descripcion": "fallas en la columna de direccion",
+                "resultado": "CONDICIONAL",
+                "id": 1,
+                "tipoMedicon": "DIRECCION"
+            },
+            {
+                "descripcion": "Amortiguadores malos",
+                "resultado": "RECHAZADO",
+                "id": 2,
+                "tipoMedicon": "SUSPENSION"
+            }
+        ],
+        "nroInspeccion": 2,
+        "id": 2,
+        "dominioVehiculo": "ASR154",
+        "observacion": {
+            "descripcion": "Mal estodo general",
+            "componentesInspeccionados": "todos",
+            "resultado": "RECHAZADO",
+            "id": 0
+        },
+        "dniInspector": "30159632"
+    },
+    {
+        "fecha": "21-04-2024 09:24:18",
+        "exento": false,
+        "mediciones": [
+            {
+                "descripcion": "buen estado",
+                "resultado": "APTO",
+                "id": 1,
+                "tipoMedicon": "DIRECCION"
+            },
+            {
+                "descripcion": "buen estado",
+                "resultado": "APTO",
+                "id": 2,
+                "tipoMedicon": "SUSPENSION"
+            }
+        ],
+        "nroInspeccion": 3,
+        "id": 3,
+        "dominioVehiculo": "AS212ER",
+        "observacion": {
+            "descripcion": "Buen estado general",
+            "componentesInspeccionados": "luces-gomas-cinturones",
+            "resultado": "APTO",
+            "id": 0
+        },
+        "dniInspector": "35621201"
+    },
+    {
+        "fecha": "21-04-2024 09:37:04",
+        "exento": false,
+        "mediciones": [
+            {
+                "descripcion": "buen estado",
+                "resultado": "APTO",
+                "id": 1,
+                "tipoMedicon": "DIRECCION"
+            },
+            {
+                "descripcion": "todo ok",
+                "resultado": "APTO",
+                "id": 2,
+                "tipoMedicon": "SUSPENSION"
+            }
+        ],
+        "nroInspeccion": 4,
+        "id": 4,
+        "dominioVehiculo": "ASA234",
+        "observacion": {
+            "descripcion": "Buen estado",
+            "componentesInspeccionados": "chapa",
+            "resultado": "APTO",
+            "id": 0
+        },
+        "dniInspector": "16256336"
+    }
+]

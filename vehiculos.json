@@ -1,0 +1,42 @@
+[
+    {
+        "marca": "Ford",
+        "fechaEmsionVtv": "",
+        "dominio": "AAA345",
+        "id": 1,
+        "modelo": "Falcon SP",
+        "dniPropietario": "43392102"
+    },
+    {
+        "marca": "Chevrolet",
+        "fechaEmsionVtv": "",
+        "dominio": "AB214CC",
+        "id": 2,
+        "modelo": "Onix",
+        "dniPropietario": "42563201"
+    },
+    {
+        "marca": "Ford",
+        "fechaEmsionVtv": "",
+        "dominio": "ASA234",
+        "id": 3,
+        "modelo": "F100",
+        "dniPropietario": "43392102"
+    },
+    {
+        "marca": "Toyota",
+        "fechaEmsionVtv": "",
+        "dominio": "AS212ER",
+        "id": 4,
+        "modelo": "Corolla",
+        "dniPropietario": "42569852"
+    },
+    {
+        "marca": "Honda",
+        "fechaEmsionVtv": "",
+        "dominio": "ASR154",
+        "id": 5,
+        "modelo": "CRV",
+        "dniPropietario": "44523698"
+    }
+]
