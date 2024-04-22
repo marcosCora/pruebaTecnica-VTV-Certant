@@ -2,6 +2,7 @@ package ModelsGestoras;
 
 import Interfaces.IArchivos;
 import ModelsEnums.Resultado;
+import ModelsExcepcion.MiExcepcionInspeccion;
 import ModelsInspeccion.Inspeccion;
 import ModelsInspeccion.Medicion;
 import org.json.JSONArray;
@@ -26,10 +27,6 @@ public class GestoraInspecciones implements IArchivos {
         }
     }
 
-    public void emitirFechaVtv(){
-
-    }
-
     public Inspeccion buscaInspeccionPorNro(int nro){
         Inspeccion aBuscar = null;
         boolean flag = false;
@@ -52,11 +49,21 @@ public class GestoraInspecciones implements IArchivos {
         return info;
     }
 
-    public void eliminar(int nroI){
+    public void eliminar(int nroI) throws MiExcepcionInspeccion{
         Inspeccion aEliminar = buscaInspeccionPorNro(nroI);
         if(aEliminar != null){
             inspecciones.remove(aEliminar);
+        }else {
+            throw new MiExcepcionInspeccion("La inspeccion que intenta eliminar no se a encontrado.");
         }
+    }
+
+    public String retornaDominioV(int i){
+        String dominio = null;
+        if(i < inspecciones.size()){
+            dominio = inspecciones.get(i).getDominioVehiculo();
+        }
+        return dominio;
     }
 
     @Override

@@ -1,8 +1,7 @@
 package ModelsGestoras;
 
 import Interfaces.IArchivos;
-import ModelsInspeccion.Inspeccion;
-import ModelsPersona.PropietarioVehiculo;
+import ModelsExcepcion.MiExcepcionVehiculo;
 import ModelsVehiculo.Vehiculo;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,12 +32,25 @@ public class GestoraVehiculos implements IArchivos {
         return aBuscar;
     }
 
-    public void agregar(Vehiculo v){ //lanzar expecion
+    public void agregar(Vehiculo v)throws MiExcepcionVehiculo {
         if(buscaVehiculoXDominio(v.getDominio()) == null){
             int ultimoId = vehiculos.size();
             v.setId(ultimoId +1);
             vehiculos.add(v);
+        }else {
+            throw new MiExcepcionVehiculo("El vehiculo que desea agregar ya se eneuntra");
         }
+    }
+
+    public String returnFechaVencimcientoVtv(String dominio) throws MiExcepcionVehiculo{
+        Vehiculo v = buscaVehiculoXDominio(dominio);
+        String fecha = "";
+        if (v != null && v.getFechaVencimientoVtv().equals("") == false){
+            fecha = v.getFechaVencimientoVtv();
+        }else{
+            throw new MiExcepcionVehiculo("El vehiculo no existe o aun no tiene fecha asignada");
+        }
+        return  fecha;
     }
 
     public String listar(){
@@ -49,6 +61,17 @@ public class GestoraVehiculos implements IArchivos {
 
         return info;
     }
+
+    public void eliminarVehiculo(String dominio) throws MiExcepcionVehiculo {
+        Vehiculo vAEliminar = buscaVehiculoXDominio(dominio);
+        if(vAEliminar != null){
+            vehiculos.remove(vAEliminar);
+        }
+        else{
+            throw new MiExcepcionVehiculo("El Vehiculo que desea elimianr no se encuentra.");
+        }
+    }
+
 
 
     @Override

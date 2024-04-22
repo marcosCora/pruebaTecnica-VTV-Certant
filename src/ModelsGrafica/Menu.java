@@ -17,6 +17,8 @@ public class Menu {
         System.out.println("2- Añadir vehiculo");
         System.out.println("3- Borrar vehiculo");
         System.out.println("4- Fecha de vencimiento de VTV");
+        System.out.println("5- Modificar vehiculo");
+        System.out.println("6- Muestra vehiculo por dominio");
         System.out.println("9- Atras");
         System.out.println("0- Salir y guardar");
     }
@@ -27,6 +29,8 @@ public class Menu {
         System.out.println("2- Crear nueva inspeccion");
         System.out.println("3- Borrar inspeccion");
         System.out.println("4- Listar autos inspeccionados");
+        System.out.println("5- Modificar inspeccion");
+        System.out.println("6- Buscar inspeccion por numero");
         System.out.println("9- Atras");
         System.out.println("0- Salir y guardar");
     }
