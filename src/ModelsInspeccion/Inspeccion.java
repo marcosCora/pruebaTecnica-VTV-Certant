@@ -1,6 +1,7 @@
 package ModelsInspeccion;
 
 import Interfaces.IFormatFecha;
+import ModelsEnums.Resultado;
 import ModelsPersona.Inspector;
 import ModelsVehiculo.Vehiculo;
 import org.json.JSONArray;
@@ -16,7 +17,6 @@ import java.util.Objects;
 public class Inspeccion implements IFormatFecha {
 
     private int id;
-    private int nroInspeccion;
     private String fecha;
     private Observacion observacion;
     private ArrayList<Medicion> mediciones;
@@ -26,7 +26,6 @@ public class Inspeccion implements IFormatFecha {
 
     public Inspeccion() {
         this.id = 0;
-        this.nroInspeccion = 0;
         this.fecha = fechaFormateada();
         this.observacion = new Observacion();
         this.mediciones = new ArrayList<Medicion>();
@@ -36,7 +35,6 @@ public class Inspeccion implements IFormatFecha {
     }
     public Inspeccion(int id, int nroInspeccion, Observacion observacion, ArrayList<Medicion> mediciones, boolean exento, String dniInspector, String dominioVehiculo) {
         this.id = id;
-        this.nroInspeccion = nroInspeccion;
         this.fecha = fechaFormateada();
         this.observacion = observacion;
         this.mediciones = mediciones;
@@ -51,14 +49,6 @@ public class Inspeccion implements IFormatFecha {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getNroInspeccion() {
-        return nroInspeccion;
-    }
-
-    public void setNroInspeccion(int nroInspeccion) {
-        this.nroInspeccion = nroInspeccion;
     }
 
     public String getFecha() {
@@ -115,7 +105,7 @@ public class Inspeccion implements IFormatFecha {
         if(obj != null){
             if(obj instanceof Inspeccion){
                 Inspeccion aux = (Inspeccion) obj;
-                if(id == aux.id && nroInspeccion == aux.nroInspeccion && dominioVehiculo.equals(((Inspeccion) obj).dominioVehiculo) && dniInspector.equals(aux.dniInspector)){
+                if(id == aux.id && dominioVehiculo.equals(((Inspeccion) obj).dominioVehiculo) && dniInspector.equals(aux.dniInspector)){
                     rta = true;
                 }
             }
@@ -132,13 +122,12 @@ public class Inspeccion implements IFormatFecha {
 
     @Override
     public String toString() {
-        return "\nInspeccion Nº " + nroInspeccion +
+        return "\nInspeccion Nº " + id +
                 "\nFecha: " + fecha +
                 "\nExento: " + exento +
                 "\nDominio Vehiculo: " + dominioVehiculo +
                 "\nDNI Inspector: " + dniInspector +
-                observacion.toString() +
-                listarMediciones();
+                "\nResultado: " + resultadoInspeccion();
 
     }
 
@@ -150,6 +139,7 @@ public class Inspeccion implements IFormatFecha {
         return info;
     }
 
+    //agrega medicion al array de mediciones
     public  void agreagr(Medicion m){
         if(m != null){
             int ultimoId = mediciones.size();
@@ -157,23 +147,45 @@ public class Inspeccion implements IFormatFecha {
            mediciones.add(m);
         }
     }
-    public void agregar(ArrayList<Medicion> m){
-        if(m != null){
-            mediciones = m;
-        }
-    }
+
+    //agrega observacion
     public  void agreagr(Observacion o){
         if(o != null){
             observacion = o;
         }
     }
 
+    public Resultado resultadoMediciones(){
+        Resultado rta = Resultado.APTO;
+        int i  = 0;
+        while (i < mediciones.size()){
+            Resultado r = mediciones.get(i).getResultado();
+            if(r == Resultado.CONDICIONAL || r == Resultado.RECHAZADO){
+                rta = r;
+            }
+            i++;
+        }
+        return rta;
+    }
+
+    public Resultado resultadoInspeccion(){
+        Resultado resultado = null;
+        Resultado rObservacion = observacion.getResultado();
+        Resultado rMediciones = resultadoMediciones();
+        if (rObservacion == Resultado.APTO && rMediciones == Resultado.APTO) {
+            resultado = Resultado.APTO;
+        } else if (rObservacion == Resultado.RECHAZADO || rMediciones == Resultado.RECHAZADO) {
+            resultado = Resultado.RECHAZADO;
+        } else {
+            resultado =  Resultado.CONDICIONAL;
+        }
+        return resultado;
+    }
 
     public JSONObject toJson(){
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id", id);
-            jsonObject.put("nroInspeccion", nroInspeccion);
             jsonObject.put("fecha", fecha);
             jsonObject.put("observacion", observacion.toJson());
             JSONArray jsonArray = new JSONArray();
@@ -198,7 +210,6 @@ public class Inspeccion implements IFormatFecha {
     public void fromJson(JSONObject jsonObject) {
         try {
             id = jsonObject.getInt("id");
-            nroInspeccion = jsonObject.getInt("nroInspeccion");
             fecha = jsonObject.getString("fecha");
             observacion.fromJson(jsonObject.getJSONObject("observacion"));
             JSONArray jsonArray = jsonObject.getJSONArray("mediciones");

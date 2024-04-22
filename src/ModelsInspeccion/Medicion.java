@@ -50,7 +50,7 @@ public class Medicion extends Control{
     public void fromJson(JSONObject jsonObject) {
         try {
             super.fromJson(jsonObject);
-            String m = jsonObject.getString("medicion");
+            String m = jsonObject.getString("tipoMedicon");
             tipoMedicion = TipoMedicion.valueOf(m.toUpperCase());
         }
         catch (JSONException ex)

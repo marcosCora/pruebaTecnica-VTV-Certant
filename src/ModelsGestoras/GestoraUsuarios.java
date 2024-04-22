@@ -115,6 +115,7 @@ public class GestoraUsuarios{
         }
     }
 
+
     //Propietarios
 
     public PropietarioVehiculo buscarPropietarioDni(String dni){
@@ -146,13 +147,11 @@ public class GestoraUsuarios{
     public String listarPropietarios(){
         String info = "";
         for(PropietarioVehiculo p : propietariosV){
-            info += "\n" + p.toString();
+            info += "\n\n" + p.toString();
         }
 
         return info;
     }
-
-
 
 
     public void guardarArchivoPropietarios(String nombreArch) {

@@ -1,6 +1,7 @@
 package ModelsGestoras;
 
 import Interfaces.IArchivos;
+import ModelsEnums.Resultado;
 import ModelsInspeccion.Inspeccion;
 import ModelsInspeccion.Medicion;
 import org.json.JSONArray;
@@ -17,12 +18,16 @@ public class GestoraInspecciones implements IArchivos {
     }
 
 
-    public void agregar(Inspeccion i){ //lanzar expecion
-        if(buscaInspeccionPorNro(i.getNroInspeccion()) == null){
+    public void agregar(Inspeccion i){
+        if(buscaInspeccionPorNro(i.getId()) == null){
             int ultimoId = inspecciones.size();
             i.setId(ultimoId +1);
             inspecciones.add(i);
         }
+    }
+
+    public void emitirFechaVtv(){
+
     }
 
     public Inspeccion buscaInspeccionPorNro(int nro){
@@ -30,7 +35,7 @@ public class GestoraInspecciones implements IArchivos {
         boolean flag = false;
         int i = 0;
         while (i < inspecciones.size() && flag == false){
-            if(nro == inspecciones.get(i).getNroInspeccion()){
+            if(nro == inspecciones.get(i).getId()){
                 aBuscar = inspecciones.get(i);
                 flag = true;
             }
@@ -42,7 +47,7 @@ public class GestoraInspecciones implements IArchivos {
     public String listar(){
         String info = "";
         for(Inspeccion i : inspecciones){
-            info += "\n" + i.toString();
+            info += "\n\n" + i.toString();
         }
         return info;
     }

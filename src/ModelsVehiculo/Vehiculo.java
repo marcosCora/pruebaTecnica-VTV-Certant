@@ -1,20 +1,18 @@
 package ModelsVehiculo;
 
-import ModelsInspeccion.Medicion;
-import ModelsPersona.Persona;
-import ModelsPersona.PropietarioVehiculo;
-import org.json.JSONArray;
+import Interfaces.IFormatFecha;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class Vehiculo {
+public class Vehiculo implements IFormatFecha {
     private int id;
     private String marca;
     private String modelo;
     private String dominio;
-    private String fechaEmisionVtv;
+    private String fechaVencimientoVtv;
     private String dniPropietario;
 
     public Vehiculo() {
@@ -22,16 +20,16 @@ public class Vehiculo {
         this.marca = "";
         this.modelo = "";
         this.dominio = "";
-        this.fechaEmisionVtv = "";
+        this.fechaVencimientoVtv = "";
         this.dniPropietario = " ";
     }
 
-    public Vehiculo(int id, String marca, String modelo, String dominio, String fechaEmisionVtv, String dniPropietario) {
+    public Vehiculo(int id, String marca, String modelo, String dominio, String fechaVencimientoVtv, String dniPropietario) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.dominio = dominio;
-        this.fechaEmisionVtv = fechaEmisionVtv;
+        this.fechaVencimientoVtv = fechaVencimientoVtv;
         this.dniPropietario = dniPropietario;
     }
 
@@ -67,12 +65,12 @@ public class Vehiculo {
         this.dominio = dominio;
     }
 
-    public String getFechaEmisionVtv() {
-        return fechaEmisionVtv;
+    public String getFechaVencimientoVtv() {
+        return fechaVencimientoVtv;
     }
 
-    public void setFechaEmisionVtv(String fechaEmisionVtv) {
-        this.fechaEmisionVtv = fechaEmisionVtv;
+    public void setFechaVencimientoVtv(String fechaVencimientoVtv) {
+        this.fechaVencimientoVtv = fechaVencimientoVtv;
     }
 
     public String getPropietario() {
@@ -103,7 +101,7 @@ public class Vehiculo {
                 "\nMarca: " + marca +
                 "\nModelo: " + modelo +
                 "\nDominio:" + dominio +
-                "\nFecha de emision de VTV: " + fechaEmisionVtv +
+                "\nFecha de emision de VTV: " + fechaVencimientoVtv +
                 "\nDni Propietario: " + dniPropietario;
     }
 
@@ -114,7 +112,7 @@ public class Vehiculo {
             jsonObject.put("marca", marca);
             jsonObject.put("modelo", modelo);
             jsonObject.put("dominio", dominio);
-            jsonObject.put("fechaEmsionVtv", fechaEmisionVtv);
+            jsonObject.put("fechaVencimientoVtv", fechaVencimientoVtv);
             jsonObject.put("dniPropietario", dniPropietario);
         }catch (JSONException ex){
             System.out.println(ex.getMessage());
@@ -129,7 +127,7 @@ public class Vehiculo {
             marca = jsonObject.getString("marca");
             modelo = jsonObject.getString("modelo");
             dominio = jsonObject.getString("dominio");
-            fechaEmisionVtv = jsonObject.getString("fechaEmsionVtv");
+            fechaVencimientoVtv = jsonObject.getString("fechaVencimientoVtv");
             dniPropietario = jsonObject.getString("dniPropietario");
 
         }
@@ -144,6 +142,11 @@ public class Vehiculo {
     }
 
 
-
-
+    @Override
+    public String fechaFormateada() {
+        LocalDateTime fechaActual = LocalDateTime.now();
+        LocalDateTime fechaUnAnioDespues = fechaActual.plusYears(1);
+        DateTimeFormatter fechaFormateada = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return fechaUnAnioDespues.format(fechaFormateada);
+    }
 }
