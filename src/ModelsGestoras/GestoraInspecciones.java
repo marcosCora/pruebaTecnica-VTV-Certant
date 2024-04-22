@@ -1,6 +1,7 @@
 package ModelsGestoras;
 
 import Interfaces.IArchivos;
+import ModelsEnums.Resultado;
 import ModelsInspeccion.Inspeccion;
 import ModelsInspeccion.Medicion;
 import org.json.JSONArray;
@@ -17,12 +18,16 @@ public class GestoraInspecciones implements IArchivos {
     }
 
 
-    public void agregar(Inspeccion i){ 
+    public void agregar(Inspeccion i){
         if(buscaInspeccionPorNro(i.getId()) == null){
             int ultimoId = inspecciones.size();
             i.setId(ultimoId +1);
             inspecciones.add(i);
         }
+    }
+
+    public void emitirFechaVtv(){
+
     }
 
     public Inspeccion buscaInspeccionPorNro(int nro){

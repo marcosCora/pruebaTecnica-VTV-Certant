@@ -3,7 +3,6 @@ package ModelsGrafica;
 import ModelsEnums.Resultado;
 import ModelsEnums.TipoDueno;
 import ModelsEnums.TipoMedicion;
-import ModelsGestoras.GestoraFacturas;
 import ModelsGestoras.GestoraInspecciones;
 import ModelsGestoras.GestoraUsuarios;
 import ModelsGestoras.GestoraVehiculos;
@@ -11,7 +10,6 @@ import ModelsInspeccion.Inspeccion;
 import ModelsInspeccion.Medicion;
 import ModelsInspeccion.Observacion;
 import ModelsPersona.Inspector;
-import ModelsPersona.Persona;
 import ModelsPersona.PropietarioVehiculo;
 import ModelsVehiculo.Vehiculo;
 
@@ -209,6 +207,9 @@ public class Sistema {
                 gestoraUsuarios.agregarInspecciones(newInspeccion, inspector.getDni());
                 gestoraInspecciones.agregar(newInspeccion);
                 teclado.nextLine();
+                if(newInspeccion.resultadoInspeccion() == Resultado.APTO){
+                    vehiculo.setFechaVencimientoVtv(vehiculo.fechaFormateada());
+                }
             }//generar nuevo vehiculo en caso de que lo necesite
 
         }//debo llamar la opcion para crear nuevo inspector en caso de que no exista
@@ -418,5 +419,7 @@ public class Sistema {
             }
         }
     }
+
+
 
 }
