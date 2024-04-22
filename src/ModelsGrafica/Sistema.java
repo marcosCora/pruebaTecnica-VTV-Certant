@@ -4,6 +4,7 @@ import ModelsEnums.Resultado;
 import ModelsEnums.TipoDueno;
 import ModelsEnums.TipoMedicion;
 import ModelsExcepcion.MiExcepcionInspeccion;
+import ModelsExcepcion.MiExcepcionUsuario;
 import ModelsExcepcion.MiExcepcionVehiculo;
 import ModelsGestoras.GestoraInspecciones;
 import ModelsGestoras.GestoraUsuarios;
@@ -14,7 +15,9 @@ import ModelsInspeccion.Observacion;
 import ModelsPersona.Inspector;
 import ModelsPersona.PropietarioVehiculo;
 import ModelsVehiculo.Vehiculo;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -177,8 +180,43 @@ public class Sistema {
                     listarAutosInspeccionados();
                     break;
                 case 5:
+                    listarAutosXResultadoDeInspeccion();
                     break;
                 case 6:
+                    try{
+                        teclado.nextLine();
+                        System.out.println("Ingrese el Nº de inspeccion: ");
+                        Inspeccion i = gestoraInspecciones.buscaInspeccionPorNro(teclado.nextInt());
+                        teclado.nextLine();
+                        if(i != null){
+                            modificarInspeccion(i);
+                        }else {
+                            throw new MiExcepcionInspeccion("La inspeccion ingresada no es valida");
+                        }
+                    }catch (MiExcepcionInspeccion e){
+                        System.out.println("Error " + e.getMessage());
+                    }catch (Exception e){
+                        System.out.println("Error " + e.getMessage());
+                    }
+
+                    break;
+                case 7:
+                    try{
+                        teclado.nextLine();
+                        System.out.println("Ingrese el Nº de inspeccion: ");
+                        Inspeccion i = gestoraInspecciones.buscaInspeccionPorNro(teclado.nextInt());
+                        teclado.nextLine();
+                        if(i != null){
+                            System.out.println(i.toString());
+                        }else {
+                            throw new MiExcepcionInspeccion("La inspeccion ingresada no es valida");
+                        }
+                    }catch (MiExcepcionInspeccion e){
+                        System.out.println("Error " + e.getMessage());
+                    }catch (Exception e){
+                        System.out.println("Error " + e.getMessage());
+                    }
+
                     break;
                 case 9:
                     cicloPrograma();
@@ -200,9 +238,40 @@ public class Sistema {
                 case 2:
                     agregarInspector();
                     break;
-
                 case 3:
-                    //buscar por dni
+                    try {
+                        teclado.nextLine();
+                        System.out.println("Ingrese el DNI: ");
+                        String dni = teclado.nextLine();
+                        gestoraUsuarios.eliminarInspector(dni);
+                        System.out.println("Inspector Eliminado con exito");
+                    }catch (MiExcepcionUsuario e) {
+                        System.out.println("Error " + e.getMessage());
+                    }
+                    catch (Exception e){
+                        System.out.println("Error" + e.getMessage());
+                    }
+                    break;
+                case 4:
+                    teclado.nextLine();
+                    System.out.println("Ingrese el DNI: ");
+                    String dni = teclado.nextLine();
+                    Inspector i = gestoraUsuarios.buscaInspectorXDni(dni);
+                    if(i != null){
+                        System.out.println(i.toString());
+                    }else{
+                        System.out.println("El inspector no existe");
+                    }
+                    break;
+                case 5:
+                    teclado.nextLine();
+                    System.out.println("Ingrese el DNI del propietario: ");
+                    Inspector inspector = gestoraUsuarios.buscaInspectorXDni(teclado.nextLine());
+                    if(inspector != null){
+                        modificarInspector(inspector);
+                    }else{
+                        System.out.println("El inspector  no existe");
+                    }
                     break;
                 case 9:
                     cicloPrograma();
@@ -226,8 +295,42 @@ public class Sistema {
                     break;
 
                 case 3:
-                    //buscar por dni
+                    try {
+                        teclado.nextLine();
+                        System.out.println("Ingrese el DNI: ");
+                        String dni = teclado.nextLine();
+                        gestoraUsuarios.eliminarPropietario(dni);
+                        System.out.println("Propietario Eliminado con exito");
+                    }catch (MiExcepcionUsuario e) {
+                        System.out.println("Error " + e.getMessage());
+                    }
+                    catch (Exception e){
+                        System.out.println("Error" + e.getMessage());
+                    }
                     break;
+                case 4:
+                    teclado.nextLine();
+                    System.out.println("Ingrese el DNI: ");
+                    String dni = teclado.nextLine();
+                    PropietarioVehiculo p = gestoraUsuarios.buscarPropietarioDni(dni);
+                    if(p != null){
+                        System.out.println(p.toString());
+                    }else{
+                        System.out.println("El Propietario no existe");
+                    }
+                    break;
+                case 5:
+                    teclado.nextLine();
+                    System.out.println("Ingrese el DNI del propietario: ");
+                    PropietarioVehiculo propietario = gestoraUsuarios.buscarPropietarioDni(teclado.nextLine());
+                     if(propietario != null){
+                         modificarPropietario(propietario);
+                     }else{
+                         System.out.println("El propietario no existe");
+                     }
+
+                    break;
+
                 case 9:
                     cicloPrograma();
                     break;
@@ -512,5 +615,131 @@ public class Sistema {
             i++;
         }
     }
+
+    public void listarAutosXResultadoDeInspeccion(){
+        System.out.println("Ingrese el tipo de resultado que desea utilizar como filtro:");
+        Resultado r = resultado();
+        ArrayList<String> dominios = gestoraInspecciones.devuelveAutosInspeccionadosXResultado(r);
+
+        System.out.println("Estos son los vehiculos con el resulatdo de inspeccion: " + r);
+        for (String dominio : dominios){
+            Vehiculo v = gestoraVehiculos.buscaVehiculoXDominio(dominio);
+            System.out.println(v.toString());
+        }
+    }
+
+    public void modificarInspeccion(Inspeccion i){
+
+        do {
+            menu.menuModificacionInspeccion();
+            opcion = teclado.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    teclado.nextLine();
+                    System.out.println("Ingrese la observacion: ");
+                    i.setObservacion(creaObservacion());
+                    break;
+                case 2:
+                    teclado.nextLine();
+                    i.setMediciones(new ArrayList<Medicion>());
+                    System.out.println("Ingrese las nuevas mediciones: ");
+                    creaNuevasMediciones(i);
+                    break;
+                case 9:
+                    cicloPrograma();
+                    break;
+            }
+        }while (opcion != 0);
+
+    }
+
+
+    public void modificarInspector(Inspector i){
+
+        do {
+            teclado.nextLine();
+            menu.menuModificacionInspector();
+            opcion = teclado.nextInt();
+            teclado.nextLine();
+
+                try{
+                    switch (opcion) {
+                        case 1:
+                            System.out.println("Ingrese el nuevo nombre: ");
+                            i.setNombre(teclado.nextLine());
+                            break;
+                        case 2:
+                            System.out.println("Ingrese el nuevo apellido: ");
+                            i.setApellido(teclado.nextLine());
+                            break;
+                        case 3:
+                            System.out.println("Ingrese la nueva direccion: ");
+                            i.setDireccion(teclado.nextLine());
+                            break;
+                        case 4:
+                            System.out.println("Ingrese el nuevo telefono: ");
+                            i.setTelefono(teclado.nextLine());
+                            break;
+                        case 5:
+                            System.out.println("Ingrese la nueva especialidad: ");
+                            i.setEspecialidad(teclado.nextLine());
+                            break;
+                        case 9:
+                            cicloPrograma();
+                            break;
+                    }
+                    System.out.println("Ingrese 9 para no agregar mas mediciones - Otro para continuar");
+                    opcion = teclado.nextInt();
+                    teclado.nextLine();
+                }catch (InputMismatchException e){
+                    System.out.println("Error: debe ingresar un numero para continuar o seguir");
+                    opcion = -1;
+                    teclado.nextLine();
+                }
+            } while (opcion != 9);
+    }
+
+    public void modificarPropietario(PropietarioVehiculo p){
+
+        do {
+            teclado.nextLine();
+            menu.menuModificacionUsuario();
+            opcion = teclado.nextInt();
+            teclado.nextLine();
+
+            try{
+                switch (opcion) {
+                    case 1:
+                        System.out.println("Ingrese el nuevo nombre: ");
+                        p.setNombre(teclado.nextLine());
+                        break;
+                    case 2:
+                        System.out.println("Ingrese el nuevo apellido: ");
+                        p.setApellido(teclado.nextLine());
+                        break;
+                    case 3:
+                        System.out.println("Ingrese la nueva direccion: ");
+                        p.setDireccion(teclado.nextLine());
+                        break;
+                    case 4:
+                        System.out.println("Ingrese el nuevo telefono: ");
+                        p.setTelefono(teclado.nextLine());
+                        break;
+                    case 9:
+                        cicloPrograma();
+                        break;
+                }
+                System.out.println("Ingrese 9 para no agregar mas mediciones - Otro para continuar");
+                opcion = teclado.nextInt();
+                teclado.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println("Error: debe ingresar un numero para continuar o seguir");
+                opcion = -1;
+                teclado.nextLine();
+            }
+        } while (opcion != 9);
+    }
+
 
 }

@@ -2,6 +2,7 @@ package ModelsGestoras;
 
 import Interfaces.IArchivos;
 import ModelsEnums.TipoDueno;
+import ModelsExcepcion.MiExcepcionUsuario;
 import ModelsInspeccion.Inspeccion;
 import ModelsPersona.Inspector;
 import ModelsPersona.PropietarioVehiculo;
@@ -62,13 +63,16 @@ public class GestoraUsuarios{
         return info;
     }
 
-    public void eliminarInspector(String dni){
+    public void eliminarInspector(String dni) throws MiExcepcionUsuario{
         Inspector aEliminar = buscaInspectorXDni(dni);
         if(aEliminar != null){
+            //System.out.println(aEliminar);
             inspectores.remove(aEliminar);
+            //System.out.println(inspectores);
+        }else {
+            throw new MiExcepcionUsuario("Usuario no encontrado");
         }
     }
-
     public Inspector buscaInspectorXDni(String dni){
         Inspector i = null;
         for (Inspector aux : inspectores) {
@@ -153,6 +157,14 @@ public class GestoraUsuarios{
         return info;
     }
 
+    public void eliminarPropietario(String dni) throws MiExcepcionUsuario{
+        PropietarioVehiculo aEliminar = buscarPropietarioDni(dni);
+        if(aEliminar != null){
+            propietariosV.remove(aEliminar);
+        }else {
+            throw new MiExcepcionUsuario("Usuario no encontrado");
+        }
+    }
 
     public void guardarArchivoPropietarios(String nombreArch) {
         JSONArray jsonArray = new JSONArray();

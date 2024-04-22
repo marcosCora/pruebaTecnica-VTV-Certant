@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.SimpleTimeZone;
 
 public class Inspector extends Persona{
@@ -18,6 +19,12 @@ public class Inspector extends Persona{
         this.especialidad = "";
         this.inspecciones = new ArrayList<>();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
 
     public Inspector(int id, String nombre, String apellido, String dni, String direccion, String telefono, String especialidad, ArrayList<Inspeccion> inspecciones) {
         super(id, nombre, apellido, dni, direccion, telefono);
