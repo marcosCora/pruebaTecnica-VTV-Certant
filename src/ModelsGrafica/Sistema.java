@@ -3,6 +3,8 @@ package ModelsGrafica;
 import ModelsEnums.Resultado;
 import ModelsEnums.TipoDueno;
 import ModelsEnums.TipoMedicion;
+import ModelsExcepcion.MiExcepcionInspeccion;
+import ModelsExcepcion.MiExcepcionVehiculo;
 import ModelsGestoras.GestoraInspecciones;
 import ModelsGestoras.GestoraUsuarios;
 import ModelsGestoras.GestoraVehiculos;
@@ -22,7 +24,6 @@ public class Sistema {
     private GestoraInspecciones gestoraInspecciones;
     private GestoraUsuarios gestoraUsuarios;
     private GestoraVehiculos gestoraVehiculos;
-    private GestoraFacturas gestoraFacturas;
     private Scanner teclado;
     private Menu menu;
     private int opcion;
@@ -31,7 +32,6 @@ public class Sistema {
         gestoraInspecciones = new GestoraInspecciones();
         gestoraUsuarios = new GestoraUsuarios();
         gestoraVehiculos = new GestoraVehiculos();
-        gestoraFacturas = new GestoraFacturas();
         this.teclado = new Scanner(System.in);
         this.opcion = -1;
         cargaSistema();
@@ -96,9 +96,45 @@ public class Sistema {
 
                 case 3:
 
+                    try {
+                        teclado.nextLine();
+                        System.out.println("Ingrese el dominio del vehiculo a eliminar: ");
+                        String dominio = teclado.nextLine();
+                        gestoraVehiculos.eliminarVehiculo(dominio);
+                        System.out.println("Vehiculo Eliminado con exito");
+                    }catch (MiExcepcionVehiculo e) {
+                        System.out.println("Error " + e.getMessage());
+                    }
+                    catch (Exception e){
+                        System.out.println("Error" + e.getMessage());
+                    }
                     break;
                 case 4:
-
+                    try {
+                        teclado.nextLine();
+                        System.out.println("Ingresa el dominio de tu vehiculo: ");
+                        String dominio = teclado.nextLine();
+                        String fecha = gestoraVehiculos.returnFechaVencimcientoVtv(dominio);
+                        System.out.println("Fecha de vencimiento: " + fecha);
+                    }catch (MiExcepcionVehiculo e){
+                        System.out.println("Error: " + e.getMessage());
+                    }catch (Exception e){
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+                case 5:
+                    modificarVehiculo();
+                    break;
+                case 6:
+                        teclado.nextLine();
+                        System.out.println("Ingresa el dominio de tu vehiculo: ");
+                        String dominio = teclado.nextLine();
+                        Vehiculo v = gestoraVehiculos.buscaVehiculoXDominio(dominio);
+                        if (v != null){
+                            System.out.println(v);
+                        }else {
+                            System.out.println("No existe vehiculo con ese dominio.");
+                        }
                     break;
                 case 9:
                     cicloPrograma();
@@ -114,7 +150,6 @@ public class Sistema {
 
             switch (opcion) {
                 case 1:
-                    System.out.println("hola");
                     System.out.println(gestoraInspecciones.listar());
                     break;
 
@@ -123,7 +158,27 @@ public class Sistema {
                     break;
 
                 case 3:
-
+                    try {
+                        teclado.nextLine();
+                        System.out.println("Ingrese Nº de inspeccion: ");
+                        int nInspeccion = teclado.nextInt();
+                        gestoraInspecciones.eliminar(nInspeccion);
+                        System.out.println("Inspeccion Eliminada");
+                    } catch (InputMismatchException e) {
+                        System.out.println("Error " + e.getMessage());
+                    }catch (MiExcepcionInspeccion e) {
+                        System.out.println("Error " + e.getMessage());
+                    }
+                    catch (Exception e){
+                        System.out.println("Error" + e.getMessage());
+                    }
+                    break;
+                case 4:
+                    listarAutosInspeccionados();
+                    break;
+                case 5:
+                    break;
+                case 6:
                     break;
                 case 9:
                     cicloPrograma();
@@ -393,9 +448,10 @@ public class Sistema {
         PropietarioVehiculo p = gestoraUsuarios.buscarPropietarioDni(teclado.nextLine());
         if(p != null){
             newVechiculo.setDniPropietario(p.getDni());
-            System.out.println("Dominio: ");
-            String dominio = teclado.nextLine();
-            if(gestoraVehiculos.buscaVehiculoXDominio(dominio) == null){
+            try{
+                System.out.println("Dominio: ");
+                String dominio = teclado.nextLine();
+
                 newVechiculo.setDominio(dominio);
                 System.out.println("Marca:");
                 newVechiculo.setMarca(teclado.nextLine());
@@ -403,6 +459,11 @@ public class Sistema {
                 newVechiculo.setModelo(teclado.nextLine());
                 gestoraVehiculos.agregar(newVechiculo);
                 gestoraUsuarios.agregarVehiculoP(newVechiculo, p.getDni());
+            }catch (MiExcepcionVehiculo e){
+                System.out.println("Error: " + e.getMessage());
+            }
+            catch (Exception e){
+                System.out.println("Error: " + e.getMessage());
             }
         }else{
             System.out.println("Primero debe ingresar los datos del propietario");
@@ -420,6 +481,36 @@ public class Sistema {
         }
     }
 
+    public void modificarVehiculo(){
+        teclado.nextLine();
+        try {
+            System.out.println("Ingrese el dominio: ");
+            String dominio = teclado.nextLine();
+            Vehiculo vehiculoAModificar = gestoraVehiculos.buscaVehiculoXDominio(dominio);
+            if(vehiculoAModificar != null){
+                System.out.println("Marca:");
+                vehiculoAModificar.setMarca(teclado.nextLine());
+                System.out.println("Modelo:");
+                vehiculoAModificar.setModelo(teclado.nextLine());
+            }else{
+                throw new MiExcepcionVehiculo("El Vehiculo no existe");
+            }
+        }catch (MiExcepcionVehiculo e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 
+    public void listarAutosInspeccionados(){
+
+        int i = 0;
+        while (gestoraInspecciones.retornaDominioV(i) != null){
+            Vehiculo vInspeccionado = gestoraVehiculos.buscaVehiculoXDominio(gestoraInspecciones.retornaDominioV(i));
+            System.out.println(vInspeccionado.toString());
+            i++;
+        }
+    }
 
 }
