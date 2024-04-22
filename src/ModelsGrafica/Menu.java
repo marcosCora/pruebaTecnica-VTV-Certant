@@ -29,8 +29,9 @@ public class Menu {
         System.out.println("2- Crear nueva inspeccion");
         System.out.println("3- Borrar inspeccion");
         System.out.println("4- Listar autos inspeccionados");
-        System.out.println("5- Modificar inspeccion");
-        System.out.println("6- Buscar inspeccion por numero");
+        System.out.println("5- Listar autos por resultado");
+        System.out.println("6- Modificar inspeccion");
+        System.out.println("7- Buscar inspeccion por numero");
         System.out.println("9- Atras");
         System.out.println("0- Salir y guardar");
     }
@@ -39,7 +40,9 @@ public class Menu {
         System.out.println("\nMENU -- Ingrese el numero de la opcion que desee");
         System.out.println("1- Listar inspectores");
         System.out.println("2- Añadir inspector");
-        System.out.println("3- Borrar inspector");
+        System.out.println("3- Borrar inspector por DNI");
+        System.out.println("4- Buscar inspector por DNI");
+        System.out.println("5- Modificar Inspecor");
         System.out.println("9- Atras");
         System.out.println("0- Salir y guardar");
     }
@@ -48,11 +51,19 @@ public class Menu {
         System.out.println("\nMENU -- Ingrese el numero de la opcion que desee");
         System.out.println("1- Listar propietarios");
         System.out.println("2- Añadir Propietario");
-        System.out.println("3- Buscar por DNI");
+        System.out.println("3- Eliminar propietario por DNI");
+        System.out.println("3- Buscar propietario por DNI");
         System.out.println("9- Atras");
         System.out.println("0- Salir y guardar");
     }
 
+    public static void menuModificacionInspeccion(){
+        System.out.println("Que desea modificar: ");
+        System.out.println("1- Observacion");
+        System.out.println("2- Mediciones");
+        System.out.println("9- Atras");
+        System.out.println("0- Salir y guardar");
+    }
 
 
 

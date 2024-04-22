@@ -172,6 +172,7 @@ public class Inspeccion implements IFormatFecha {
         Resultado resultado = null;
         Resultado rObservacion = observacion.getResultado();
         Resultado rMediciones = resultadoMediciones();
+
         if (rObservacion == Resultado.APTO && rMediciones == Resultado.APTO) {
             resultado = Resultado.APTO;
         } else if (rObservacion == Resultado.RECHAZADO || rMediciones == Resultado.RECHAZADO) {

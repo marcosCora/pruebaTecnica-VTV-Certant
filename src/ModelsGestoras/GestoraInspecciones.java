@@ -66,6 +66,20 @@ public class GestoraInspecciones implements IArchivos {
         return dominio;
     }
 
+    //funcion que devuelve un array con los dominios de los autos inspeccionados y con un resultado
+    //en especifico
+    public ArrayList<String> devuelveAutosInspeccionadosXResultado(Resultado r){
+        ArrayList<String> dominios = new ArrayList<>();
+        for (Inspeccion i : inspecciones){
+            Resultado resultado = i.resultadoInspeccion();
+            if (resultado == r){
+                dominios.add(i.getDominioVehiculo());
+            }
+        }
+        return dominios;
+    }
+
+
     @Override
     public void guardarArchivo(String nombreArch) {
         JSONArray jsonArray = new JSONArray();
