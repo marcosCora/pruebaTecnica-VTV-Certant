@@ -264,7 +264,14 @@ public class Sistema {
                     }
                     break;
                 case 5:
-                    //modificar
+                    teclado.nextLine();
+                    System.out.println("Ingrese el DNI del propietario: ");
+                    Inspector inspector = gestoraUsuarios.buscaInspectorXDni(teclado.nextLine());
+                    if(inspector != null){
+                        modificarInspector(inspector);
+                    }else{
+                        System.out.println("El inspector  no existe");
+                    }
                     break;
                 case 9:
                     cicloPrograma();
@@ -311,6 +318,17 @@ public class Sistema {
                     }else{
                         System.out.println("El Propietario no existe");
                     }
+                    break;
+                case 5:
+                    teclado.nextLine();
+                    System.out.println("Ingrese el DNI del propietario: ");
+                    PropietarioVehiculo propietario = gestoraUsuarios.buscarPropietarioDni(teclado.nextLine());
+                     if(propietario != null){
+                         modificarPropietario(propietario);
+                     }else{
+                         System.out.println("El propietario no existe");
+                     }
+
                     break;
 
                 case 9:
@@ -636,8 +654,91 @@ public class Sistema {
 
     }
 
-    public void eliminarUsuario(){
 
+    public void modificarInspector(Inspector i){
+
+        do {
+            teclado.nextLine();
+            menu.menuModificacionInspector();
+            opcion = teclado.nextInt();
+            teclado.nextLine();
+
+                try{
+                    switch (opcion) {
+                        case 1:
+                            System.out.println("Ingrese el nuevo nombre: ");
+                            i.setNombre(teclado.nextLine());
+                            break;
+                        case 2:
+                            System.out.println("Ingrese el nuevo apellido: ");
+                            i.setApellido(teclado.nextLine());
+                            break;
+                        case 3:
+                            System.out.println("Ingrese la nueva direccion: ");
+                            i.setDireccion(teclado.nextLine());
+                            break;
+                        case 4:
+                            System.out.println("Ingrese el nuevo telefono: ");
+                            i.setTelefono(teclado.nextLine());
+                            break;
+                        case 5:
+                            System.out.println("Ingrese la nueva especialidad: ");
+                            i.setEspecialidad(teclado.nextLine());
+                            break;
+                        case 9:
+                            cicloPrograma();
+                            break;
+                    }
+                    System.out.println("Ingrese 9 para no agregar mas mediciones - Otro para continuar");
+                    opcion = teclado.nextInt();
+                    teclado.nextLine();
+                }catch (InputMismatchException e){
+                    System.out.println("Error: debe ingresar un numero para continuar o seguir");
+                    opcion = -1;
+                    teclado.nextLine();
+                }
+            } while (opcion != 9);
+    }
+
+    public void modificarPropietario(PropietarioVehiculo p){
+
+        do {
+            teclado.nextLine();
+            menu.menuModificacionUsuario();
+            opcion = teclado.nextInt();
+            teclado.nextLine();
+
+            try{
+                switch (opcion) {
+                    case 1:
+                        System.out.println("Ingrese el nuevo nombre: ");
+                        p.setNombre(teclado.nextLine());
+                        break;
+                    case 2:
+                        System.out.println("Ingrese el nuevo apellido: ");
+                        p.setApellido(teclado.nextLine());
+                        break;
+                    case 3:
+                        System.out.println("Ingrese la nueva direccion: ");
+                        p.setDireccion(teclado.nextLine());
+                        break;
+                    case 4:
+                        System.out.println("Ingrese el nuevo telefono: ");
+                        p.setTelefono(teclado.nextLine());
+                        break;
+                    case 9:
+                        cicloPrograma();
+                        break;
+                }
+                System.out.println("Ingrese 9 para no agregar mas mediciones - Otro para continuar");
+                opcion = teclado.nextInt();
+                teclado.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println("Error: debe ingresar un numero para continuar o seguir");
+                opcion = -1;
+                teclado.nextLine();
+            }
+        } while (opcion != 9);
     }
 
 

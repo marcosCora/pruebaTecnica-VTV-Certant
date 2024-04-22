@@ -52,7 +52,8 @@ public class Menu {
         System.out.println("1- Listar propietarios");
         System.out.println("2- Añadir Propietario");
         System.out.println("3- Eliminar propietario por DNI");
-        System.out.println("3- Buscar propietario por DNI");
+        System.out.println("4- Buscar propietario por DNI");
+        System.out.println("5- Modificar");
         System.out.println("9- Atras");
         System.out.println("0- Salir y guardar");
     }
@@ -65,7 +66,20 @@ public class Menu {
         System.out.println("0- Salir y guardar");
     }
 
+    public static void menuModificacionUsuario(){
+        System.out.println("Que desea modificar: ");
+        System.out.println("1- Modificar nombre");
+        System.out.println("2- Modificar apellido");
+        System.out.println("3- Modificar direccion");
+        System.out.println("4- Modificar telefono");
+    }
 
+    public static void menuModificacionInspector(){
+        menuModificacionUsuario();
+        System.out.println("5- Modificar especialidad");
+        System.out.println("9- Atras");
+        System.out.println("0- Salir y guardar");
+    }
 
 
 
